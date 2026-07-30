@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# www → apex, preserving path (canonical host is danieltrandata.com)
+RewriteCond %{HTTP_HOST} ^www\.danieltrandata\.com$ [NC]
+RewriteRule ^ https://danieltrandata.com%{REQUEST_URI} [R=301,L]
