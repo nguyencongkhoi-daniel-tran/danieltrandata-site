@@ -1389,6 +1389,46 @@ svg { width: 100%; height: 100%; display: block; }
   .stack-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* ---------- BACK TO TOP ---------- */
+.to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 150;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px rgba(11, 45, 92, .28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--t), transform var(--t), visibility var(--t),
+              background var(--t), color var(--t), box-shadow var(--t);
+}
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover {
+  background: var(--color-yellow);
+  color: var(--color-navy);
+  box-shadow: var(--shadow-card-hover);
+}
+.to-top:focus-visible {
+  outline: 3px solid var(--color-yellow);
+  outline-offset: 3px;
+}
+.to-top svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ---------- MOTION ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1402,7 +1442,7 @@ svg { width: 100%; height: 100%; display: block; }
 
 /* ---------- PRINT ---------- */
 @media print {
-  .header, .burger, .hero-btns, .cta-band, .contact-form, .launch-bar { display: none !important; }
+  .header, .burger, .hero-btns, .cta-band, .contact-form, .launch-bar, .to-top { display: none !important; }
   body { background: #fff; }
   .card, .status-panel { box-shadow: none; break-inside: avoid; }
   .sec { padding: 1.25rem 0; }

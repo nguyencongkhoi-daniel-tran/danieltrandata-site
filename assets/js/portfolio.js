@@ -46,6 +46,40 @@
     });
   }
 
+  /* ---------- BACK TO TOP ----------
+     The anchor works on its own; this only shows/hides it and
+     guarantees an exact scroll to 0 (scroll-padding offsets #top). */
+  var toTop = document.getElementById('toTop');
+
+  if (toTop) {
+    var SHOW_AFTER = 600;
+    var ticking = false;
+
+    function syncToTop() {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      toTop.classList.toggle('show', y > SHOW_AFTER);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(syncToTop);
+    }, { passive: true });
+
+    syncToTop();
+
+    toTop.addEventListener('click', function (e) {
+      e.preventDefault();
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+
+      // Move focus so keyboard users land at the top, not where they were.
+      var anchor = document.getElementById('top');
+      if (anchor) anchor.focus({ preventScroll: true });
+    });
+  }
+
   /* ---------- FOOTER YEAR ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
