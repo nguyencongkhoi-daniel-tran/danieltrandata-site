@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/portfolio.css?v=2" />
+  <link rel="stylesheet" href="assets/css/portfolio.css?v=3" />
 
   <!-- Structured data: helps Google understand who this is -->
   <script type="application/ld+json">
@@ -75,6 +75,7 @@
       <nav class="nav" id="nav" aria-label="Primary">
         <ul>
           <li><a href="#about">About</a></li>
+          <li><a href="#stack">Stack</a></li>
           <li><a href="#work">Work</a></li>
           <li><a href="#ai">AI</a></li>
           <li><a href="#credentials">Credentials</a></li>
@@ -261,12 +262,88 @@
     </section>
 
     <!-- ============================================================
+         TECH STACK — grouped by capability, not dumped in a pile.
+         Icons are monochrome navy on purpose: one system, one palette.
+         Capabilities with no product logo (Power Query, DAX, Graph,
+         auth schemes) live in the group captions instead.
+         ============================================================ -->
+    <section class="sec" id="stack">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker">Tech stack</p>
+          <h2>What I build with</h2>
+          <p class="sec-sub">
+            Most data people can&rsquo;t read a trial balance. Most accountants can&rsquo;t build a
+            pipeline. These are the tools I use across both.
+          </p>
+        </header>
+
+        <div class="stack-grid">
+          <div class="card stack-card">
+            <h3>Finance systems</h3>
+            <p class="stack-note">
+              Where the numbers actually live &mdash; jobs, invoices, timesheets and payroll.
+              Read at the source, not from an export.
+            </p>
+            <ul class="chips" role="list">
+              <li class="chip"><img src="assets/img/stack/aroflo.png" alt="" height="28" loading="lazy" decoding="async" /><span>AroFlo</span></li>
+              <li class="chip"><img src="assets/img/stack/xero.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Xero</span></li>
+              <li class="chip"><img src="assets/img/stack/clockify.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Clockify</span></li>
+            </ul>
+          </div>
+
+          <div class="card stack-card">
+            <h3>Data engineering</h3>
+            <p class="stack-note">
+              Incremental pipelines across HMAC-SHA512, OAuth&nbsp;2.0, API-key and Microsoft Graph
+              auth &mdash; watermarked, idempotent, raw saved before anything is trusted.
+            </p>
+            <ul class="chips" role="list">
+              <li class="chip"><img src="assets/img/stack/python.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Python</span></li>
+              <li class="chip"><img src="assets/img/stack/pandas.svg" alt="" height="28" loading="lazy" decoding="async" /><span>pandas</span></li>
+              <li class="chip"><img src="assets/img/stack/sql-server.svg" alt="" height="28" loading="lazy" decoding="async" /><span>SQL Server</span></li>
+              <li class="chip"><img src="assets/img/stack/n8n.svg" alt="" height="28" loading="lazy" decoding="async" /><span>n8n</span></li>
+              <li class="chip"><img src="assets/img/stack/sharepoint.svg" alt="" height="28" loading="lazy" decoding="async" /><span>SharePoint</span></li>
+            </ul>
+          </div>
+
+          <div class="card stack-card">
+            <h3>Analytics &amp; reporting</h3>
+            <p class="stack-note">
+              Star schemas on typed semantic views, Power&nbsp;Query&nbsp;(M) transforms and DAX
+              measures that reconcile to the cent.
+            </p>
+            <ul class="chips" role="list">
+              <li class="chip"><img src="assets/img/stack/power-bi.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Power BI</span></li>
+              <li class="chip"><img src="assets/img/stack/excel.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Excel</span></li>
+            </ul>
+          </div>
+
+          <div class="card stack-card">
+            <h3>Reliability &amp; practice</h3>
+            <p class="stack-note">
+              Automated data-quality checks, shrink guards and pipeline monitoring &mdash;
+              scheduled, self-healing, version-controlled and CI/CD deployed.
+            </p>
+            <ul class="chips" role="list">
+              <li class="chip"><img src="assets/img/stack/powershell.svg" alt="" height="28" loading="lazy" decoding="async" /><span>PowerShell</span></li>
+              <li class="chip"><img src="assets/img/stack/git.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Git</span></li>
+              <li class="chip"><img src="assets/img/stack/github.svg" alt="" height="28" loading="lazy" decoding="async" /><span>GitHub</span></li>
+              <li class="chip"><img src="assets/img/stack/claude.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Claude</span></li>
+              <li class="chip"><img src="assets/img/stack/openai.svg" alt="" height="28" loading="lazy" decoding="async" /><span>Codex</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          WORK — Case study 1: the AroFlo finance data platform.
          All client names, dollar figures and infrastructure detail
          are deliberately withheld. Every claim here is real and
          verifiable from the project's own build logs.
          ============================================================ -->
-    <section class="sec" id="work">
+    <section class="sec sec-tint" id="work">
       <div class="wrap">
         <header class="sec-head">
           <p class="kicker">In production</p>
@@ -447,7 +524,7 @@
          AI IN PRACTICE — applied + validated framing. All four flows
          are in production; AI-assisted building stated plainly.
          ============================================================ -->
-    <section class="sec sec-tint" id="ai">
+    <section class="sec" id="ai">
       <div class="wrap">
         <header class="sec-head">
           <p class="kicker">AI in practice</p>
@@ -529,7 +606,7 @@
          Master's; IBM carries a live verify link. Add the transcript
          PDF to assets/docs/ later and wire the "transcript" link.
          ============================================================ -->
-    <section class="sec" id="credentials">
+    <section class="sec sec-tint" id="credentials">
       <div class="wrap">
         <header class="sec-head">
           <p class="kicker">Credentials</p>
@@ -620,7 +697,7 @@
          The workstation was built for someone else; their name is
          deliberately kept off the public site.
          ============================================================ -->
-    <section class="sec sec-tint" id="beyond">
+    <section class="sec" id="beyond">
       <div class="wrap">
         <header class="sec-head">
           <p class="kicker">Beyond the work</p>

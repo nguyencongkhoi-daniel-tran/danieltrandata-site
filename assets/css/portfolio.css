@@ -1323,6 +1323,72 @@ svg { width: 100%; height: 100%; display: block; }
   .record-lab { font-size: .7rem; }
 }
 
+/* ---------- TECH STACK ---------- */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.stack-card { min-width: 0; }
+.stack-card h3 {
+  margin: 0 0 .4rem;
+  font-size: 1.0625rem;
+  color: var(--color-navy);
+  letter-spacing: -.01em;
+}
+.stack-card h3::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  background: var(--color-yellow);
+  border-radius: 2px;
+  margin-right: .55rem;
+  vertical-align: middle;
+}
+.stack-note {
+  margin: 0 0 1.15rem;
+  font-size: .875rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .8rem .9rem;
+  min-width: 86px;
+  background: var(--color-blue-light);
+  border: 1px solid #d4e3f4;
+  border-radius: var(--radius-medium);
+}
+.chip img {
+  height: 28px;
+  width: auto;
+  max-width: 108px;
+  display: block;
+}
+.chip span {
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+@media (max-width: 860px) {
+  .stack-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* ---------- MOTION ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
