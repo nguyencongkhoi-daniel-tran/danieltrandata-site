@@ -80,6 +80,84 @@
     });
   }
 
+  /* ---------- BUILD GALLERY LIGHTBOX ----------
+     The gallery links point straight at the full images, so
+     everything works with no JS. This upgrades them in place. */
+  var galleries = document.querySelectorAll('[data-gallery]');
+
+  galleries.forEach(function (gal) {
+    var links = Array.prototype.slice.call(gal.querySelectorAll('a'));
+    if (!links.length) return;
+
+    var lb = null, lbImg = null, lbCount = null, current = 0, lastFocus = null;
+
+    function build() {
+      lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.setAttribute('role', 'dialog');
+      lb.setAttribute('aria-modal', 'true');
+      lb.setAttribute('aria-label', 'Image viewer');
+      lb.hidden = true;
+      lb.innerHTML =
+        '<img alt="" />' +
+        '<button type="button" class="lb-btn lb-prev" aria-label="Previous image"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+        '<button type="button" class="lb-btn lb-next" aria-label="Next image"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+        '<button type="button" class="lb-btn lb-close" aria-label="Close viewer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<span class="lb-count" aria-hidden="true"></span>';
+      document.body.appendChild(lb);
+      lbImg = lb.querySelector('img');
+      lbCount = lb.querySelector('.lb-count');
+
+      lb.querySelector('.lb-prev').addEventListener('click', function () { show(current - 1); });
+      lb.querySelector('.lb-next').addEventListener('click', function () { show(current + 1); });
+      lb.querySelector('.lb-close').addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+
+      lb.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(); return; }
+        if (e.key === 'ArrowLeft') { show(current - 1); return; }
+        if (e.key === 'ArrowRight') { show(current + 1); return; }
+        if (e.key === 'Tab') {
+          // Keep focus inside the dialog.
+          var f = lb.querySelectorAll('button');
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    }
+
+    function show(i) {
+      current = (i + links.length) % links.length;
+      var link = links[current];
+      lbImg.src = link.getAttribute('href');
+      lbImg.alt = link.querySelector('img').alt;
+      lbCount.textContent = (current + 1) + ' / ' + links.length;
+    }
+
+    function open(i) {
+      if (!lb) build();
+      lastFocus = document.activeElement;
+      show(i);
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      lb.querySelector('.lb-close').focus();
+    }
+
+    function close() {
+      lb.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+
+    links.forEach(function (link, i) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        open(i);
+      });
+    });
+  });
+
   /* ---------- FOOTER YEAR ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
