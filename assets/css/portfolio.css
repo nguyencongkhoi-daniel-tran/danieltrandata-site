@@ -299,8 +299,28 @@ svg { width: 100%; height: 100%; display: block; }
 }
 .hero-linkedin { color: var(--color-navy); }
 .hero-linkedin img { width: 1.2rem; height: 1.2rem; display: block; border-radius: 3px; }
-.footer-col a.footer-linkedin { display: inline-flex; align-items: center; gap: .5rem; width: fit-content; }
-.footer-linkedin img { width: 1.05rem; height: 1.05rem; flex: none; }
+.footer-contact-link,
+.footer-location {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  width: fit-content;
+}
+.footer-contact-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  display: block;
+}
+.footer-email span { white-space: nowrap; }
+.footer-icon-gmail .gmail-bg { fill: #fff; }
+.footer-icon-gmail .gmail-red { fill: #ea4335; }
+.footer-icon-gmail .gmail-blue { fill: #4285f4; }
+.footer-icon-gmail .gmail-yellow { fill: #fbbc05; }
+.footer-icon-youtube rect { fill: #ff0033; }
+.footer-icon-youtube path { fill: #fff; }
+.footer-icon-location circle:first-child { fill: none; stroke: var(--color-yellow); stroke-width: 2.2; }
+.footer-icon-location circle:last-child { fill: var(--color-yellow); }
 
 .hero-trust { display: flex; flex-direction: column; gap: .45rem; }
 .hero-trust li {
@@ -1284,9 +1304,8 @@ svg { width: 100%; height: 100%; display: block; }
 }
 .footer-top {
   display: grid;
-  /* Contact column is widest of the three: it has to hold a 28-character
-     email address on one line without breaking mid-address. */
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, .85fr) minmax(0, .85fr) minmax(0, 1.3fr);
+  /* Contact column is widest: it holds email + social links on one line. */
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, .75fr) minmax(280px, 1.35fr);
   gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem);
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, .15);
