@@ -306,18 +306,34 @@ svg { width: 100%; height: 100%; display: block; }
   gap: .55rem;
   width: fit-content;
 }
+.footer-contact-icon-box {
+  width: 1.55rem;
+  height: 1.55rem;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 7px;
+  background: var(--color-blue-light);
+}
+.footer-contact-link:hover .footer-contact-icon-box {
+  background: var(--color-white);
+  border-color: rgba(247, 201, 72, .68);
+}
 .footer-contact-icon {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: .95rem;
+  height: .95rem;
   flex: none;
   display: block;
   object-fit: contain;
 }
 .footer-email span { white-space: nowrap; }
-.footer-icon-gmail { width: 1.1rem; height: 1.1rem; }
-.footer-icon-youtube { width: 1.1rem; height: 1.1rem; }
-.footer-icon-location circle:first-child { fill: none; stroke: var(--color-yellow); stroke-width: 2.2; }
-.footer-icon-location circle:last-child { fill: var(--color-yellow); }
+.footer-icon-gmail { width: .95rem; height: .95rem; }
+.footer-icon-youtube { width: .95rem; height: .95rem; }
+.footer-icon-linkedin { width: .9rem; height: .9rem; }
+.footer-icon-location circle:first-child { fill: none; stroke: var(--color-navy); stroke-width: 2.2; }
+.footer-icon-location circle:last-child { fill: var(--color-navy); }
 
 .hero-trust { display: flex; flex-direction: column; gap: .45rem; }
 .hero-trust li {
