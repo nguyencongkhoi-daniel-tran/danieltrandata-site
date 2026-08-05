@@ -407,7 +407,8 @@
               <h3>Ask only what changed</h3>
               <p>
                 Instead of re-pulling everything, the pipeline queries each system for records changed
-                since the last successful run — a watermark. Extraction time drops roughly 80–90%.
+                since the last successful run — a watermark. A typical run touches a few hundred
+                changed records instead of tens of thousands.
               </p>
             </article>
             <article class="step">
@@ -488,12 +489,12 @@
           <div class="pstat case-impact" aria-label="Impact">
             <div class="wrap pstat-grid">
               <div class="pstat-item">
-                <span class="pstat-num">80–90<span>%</span></span>
-                <span class="pstat-lab">less data pulled per run once seeded</span>
+                <span class="pstat-num">~99<span>%</span></span>
+                <span class="pstat-lab">fewer records processed per run once seeded</span>
               </div>
               <div class="pstat-item">
                 <span class="pstat-num">~9<span>min</span></span>
-                <span class="pstat-lab">full refresh, down from 25–31 minutes</span>
+                <span class="pstat-lab">pipeline run, down from 25–31 min sequential</span>
               </div>
               <div class="pstat-item">
                 <span class="pstat-num">260<span>h</span></span>
