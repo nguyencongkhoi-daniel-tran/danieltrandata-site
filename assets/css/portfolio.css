@@ -269,16 +269,17 @@ svg { width: 100%; height: 100%; display: block; }
 }
 /* Emphasise the employer name in the hero credential list. */
 .hero-trust strong { color: var(--color-navy); font-weight: 700; }
-/* Employer name links out to the company site. `.hero-trust strong` wins on
-   colour, so the anchor needs its own affordance — a soft underline that
-   firms up and turns blue on hover/focus. */
-.hero-trust a {
+/* Employer name links out to the company site. No underline at rest (Daniel's
+   call — it read as clutter in the credential list); the affordance appears on
+   hover and on keyboard focus instead. `.hero-trust strong` wins on colour over
+   the global `a` rule, so the colour shift has to target the strong directly. */
+.hero-trust a { text-decoration: none; }
+.hero-trust a:hover,
+.hero-trust a:focus-visible {
   text-decoration: underline;
-  text-decoration-color: rgba(11, 45, 92, .3);
+  text-decoration-color: var(--color-blue);
   text-underline-offset: 3px;
 }
-.hero-trust a:hover,
-.hero-trust a:focus-visible { text-decoration-color: var(--color-blue); }
 .hero-trust a:hover strong,
 .hero-trust a:focus-visible strong { color: var(--color-blue); }
 
