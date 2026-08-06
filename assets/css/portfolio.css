@@ -164,12 +164,11 @@ svg { width: 100%; height: 100%; display: block; }
   flex: none;
   width: 38px;
   height: 38px;
-  padding: 7px;
   border-radius: var(--radius-small);
-  background: var(--color-blue-light);
+  overflow: hidden;
+  line-height: 0;
 }
-.wordmark-icon svg { fill: none; stroke: var(--color-navy); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.wordmark-icon .tick { stroke: var(--color-yellow); stroke-width: 2.4; }
+.wordmark-icon svg { display: block; width: 100%; height: 100%; }
 .wordmark-text { display: flex; flex-direction: column; line-height: 1.2; }
 .wordmark-name {
   font-size: 1.02rem;
@@ -1320,8 +1319,8 @@ svg { width: 100%; height: 100%; display: block; }
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, .15);
 }
-.wordmark-light .wordmark-icon { background: rgba(255, 255, 255, .1); }
-.wordmark-light .wordmark-icon svg { stroke: var(--color-white); }
+/* Mark is a self-contained navy tile. Footer sits on navy (#0b2d5c) — a hairline ring keeps the tile edge crisp. */
+.wordmark-light .wordmark-icon { box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .14); }
 .wordmark-light .wordmark-name { color: var(--color-white); }
 .wordmark-light .wordmark-sub { color: rgba(255, 255, 255, .65); }
 
