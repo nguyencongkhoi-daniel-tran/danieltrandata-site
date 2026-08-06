@@ -433,7 +433,7 @@ svg { width: 100%; height: 100%; display: block; }
   background: var(--color-navy);
   border-radius: var(--radius-large);
 }
-.case-meta div { display: flex; flex-direction: column; gap: .3rem; }
+.case-meta > div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .8rem; }
 .case-meta-lab {
   font-size: .7rem;
   font-weight: 700;
@@ -442,6 +442,18 @@ svg { width: 100%; height: 100%; display: block; }
   color: var(--color-yellow);
 }
 .case-meta-val { font-size: .95rem; font-weight: 600; line-height: 1.4; color: var(--color-white); }
+
+/* My role — three custom line-icons (white stroke + yellow accent) */
+.cm-roles { display: flex; justify-content: center; gap: clamp(1rem, 2.2vw, 1.6rem); }
+.cm-role { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+.cm-role-ic { width: 30px; height: 30px; fill: none; stroke: var(--color-white); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.cm-role-ic .acc { stroke: var(--color-yellow); stroke-width: 2; }
+.cm-role span { font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .9); white-space: nowrap; }
+
+/* Systems unified / Built with — brand logos flipped to white on the navy band */
+.cm-logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: clamp(.9rem, 2vw, 1.3rem); min-height: 30px; }
+.cm-logo { width: auto; display: block; filter: brightness(0) invert(1); opacity: .92; }
+.cm-more { font-size: .8rem; font-weight: 600; color: rgba(255, 255, 255, .5); }
 
 .case-sub { margin: clamp(.25rem, 1vw, .75rem) 0 0; font-size: 1.25rem; }
 
