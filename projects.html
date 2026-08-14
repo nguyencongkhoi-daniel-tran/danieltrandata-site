@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Daniel Tran</title>
+  <meta name="description" content="Production data engineering projects by Daniel Tran — a governed finance data platform, a count-validated fleet extractor, automated Scope 1 & 2 emissions reporting, and a governed SQL semantic layer." />
+  <meta name="author" content="Daniel Tran" />
+
+  <!-- ============================================================
+       PORTFOLIO — danieltrandata.com
+       Static site: this file + assets/css/portfolio.css
+       + assets/js/portfolio.js. No build step, no framework.
+       ============================================================ -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Projects — Daniel Tran" />
+  <meta property="og:description" content="Things I have actually built and still run: a governed finance data platform, a count-validated extractor, automated emissions reporting." />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://danieltrandata.com/projects.html" />
+  <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Projects — Daniel Tran" />
+  <meta name="twitter:description" content="Things I have actually built and still run: a governed finance data platform, a count-validated extractor, automated emissions reporting." />
+  <meta name="twitter:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+
+  <link rel="canonical" href="https://danieltrandata.com/projects.html" />
+
+  <!-- Favicons — 'D + data-bars' mark (F1). ?v=4 busts Hostinger CDN cache -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/portfolio.css?v=18" />
+
+  <!-- Structured data: helps Google understand who this is -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Tran",
+    "url": "https://danieltrandata.com",
+    "jobTitle": "Financial Analyst",
+    "description": "Finance-trained data engineer specialising in finance-grade data pipelines, automation and decision intelligence.",
+    "address": { "@type": "PostalAddress", "addressRegion": "South Australia", "addressCountry": "AU" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Torrens University Australia" },
+    "sameAs": [
+      "https://www.linkedin.com/in/nguyen-daniel-tran-accounting/",
+      "https://www.youtube.com/@DanielTranAustraliaSA"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="index.html#top" aria-label="Daniel Tran — home">
+        <span class="wordmark-icon" aria-hidden="true">
+          <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+        </span>
+        <span class="wordmark-text">
+          <span class="wordmark-name">DANIEL TRAN</span>
+          <span class="wordmark-sub">Financial Analyst</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#stack">Stack</a></li>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="index.html#ai">AI</a></li>
+          <li><a href="index.html#credentials">Credentials</a></li>
+          <li><a href="index.html#beyond">Beyond</a></li>
+          <li class="nav-cta-item"><a class="btn btn-yellow btn-sm" href="mailto:nguyencongkhoitran@gmail.com">Get in touch</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top" tabindex="-1"></span>
+
+    <!-- ============ SUB-HERO ============ -->
+    <section class="subhero">
+      <div class="wrap">
+        <p class="kicker">Projects</p>
+        <h1>Things I have actually built and still run</h1>
+        <p class="subhero-lead">
+          Every project below is in production or has been. Each one names what it proves, what it
+          cost me to learn, and where the boundaries are — including the parts that did not work.
+          No concepts, no tutorials, no side projects that ran once and died.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT GRID ============ -->
+    <section class="sec sec-tint">
+      <div class="wrap">
+        <div class="proj-grid">
+
+          <!-- 1 — FLAGSHIP -->
+          <article class="ai-card proj-card proj-card--lead">
+            <div class="proj-head">
+              <span class="proj-status proj-status--live">In production</span>
+              <span class="proj-flag">Flagship</span>
+            </div>
+            <h2>AroFlo data platform</h2>
+            <p class="proj-role">Architect &middot; Executor &middot; Orchestrator</p>
+            <p>
+              The finance platform I designed, built and run. It pulls a job-management system,
+              accounting, HR and time-tracking into one governed warehouse that leadership's
+              reporting reads from — and, more importantly, it is built to catch its own mistakes.
+              Two independent pipelines load the same source into two databases so they can be
+              checked against each other.
+            </p>
+            <ul class="proj-metrics">
+              <li class="proj-metric">
+                <span class="proj-metric-num">15</span>
+                <span class="proj-metric-lab">data zones loaded in parallel</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">~99<span>%</span></span>
+                <span class="proj-metric-lab">fewer records per run once seeded</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">2</span>
+                <span class="proj-metric-lab">pipelines cross-checking each other</span>
+              </li>
+            </ul>
+            <ul class="proj-logos">
+              <li><img src="assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/python.svg" alt="Python" height="24" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/sql-server.svg" alt="SQL Server" height="26" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
+            </ul>
+            <a class="link-more" href="projects/aroflo-data-platform.html">
+              Read the case study
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+          </article>
+
+          <!-- 2 — GEARBOX -->
+          <article class="ai-card proj-card">
+            <div class="proj-head">
+              <span class="proj-status proj-status--live">In production</span>
+            </div>
+            <h2>Gearbox fleet &amp; plant extractor</h2>
+            <p class="proj-role">Built and validated against production</p>
+            <p>
+              A paginated, count-validated extractor for Gearbox, the fleet and plant management
+              system. The script it replaced read only the first page of results and reported
+              success — so it had been quietly showing an eighth of the data. Mine walks every page
+              and reconciles the total before it trusts a single row.
+            </p>
+            <ul class="proj-metrics">
+              <li class="proj-metric">
+                <span class="proj-metric-num">801</span>
+                <span class="proj-metric-lab">records across 9 pages, count-validated</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">12.5<span>%</span></span>
+                <span class="proj-metric-lab">was all the previous script could see</span>
+              </li>
+            </ul>
+            <ul class="proj-logos">
+              <li><img src="assets/img/stack/python.svg" alt="Python" height="24" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="proj-soon">Case study in progress</p>
+          </article>
+
+          <!-- 3 — EMISSIONS -->
+          <article class="ai-card proj-card">
+            <div class="proj-head">
+              <span class="proj-status proj-status--maint">Maintained</span>
+            </div>
+            <h2>Scope 1 &amp; 2 emissions reporting</h2>
+            <p class="proj-role">Automated carbon reporting</p>
+            <p>
+              Electricity and industrial gas consumption pulled from supplier portals on a schedule,
+              converted to Scope 1 and Scope 2 emissions, and reported in Power BI. Different
+              regulatory domain to finance, same discipline: save the raw reading, validate the
+              conversion, make the number defensible to an auditor.
+            </p>
+            <ul class="proj-logos">
+              <li><img src="assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="proj-soon">Case study in progress</p>
+          </article>
+
+          <!-- 4 — SEMANTIC LAYER -->
+          <article class="ai-card proj-card">
+            <div class="proj-head">
+              <span class="proj-status proj-status--live">In production</span>
+            </div>
+            <h2>Governed semantic layer</h2>
+            <p class="proj-role">The layer between the warehouse and the report</p>
+            <p>
+              Power BI does not point at raw tables. It reads a typed SQL view layer with a
+              read-only login, so business logic lives in one place and a report cannot silently
+              invent its own definition of a number. Seventy tables and a hundred and ninety-four
+              measures in one model, with row-level security.
+            </p>
+            <ul class="proj-metrics">
+              <li class="proj-metric">
+                <span class="proj-metric-num">70</span>
+                <span class="proj-metric-lab">tables in one governed model</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">194</span>
+                <span class="proj-metric-lab">measures, row-level security</span>
+              </li>
+            </ul>
+            <ul class="proj-logos">
+              <li><img src="assets/img/stack/sql-server.svg" alt="SQL Server" height="26" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="proj-soon">Case study in progress</p>
+          </article>
+
+          <!-- 5 — THIS SITE -->
+          <article class="ai-card proj-card">
+            <div class="proj-head">
+              <span class="proj-status proj-status--live">You are on it</span>
+            </div>
+            <h2>This website</h2>
+            <p class="proj-role">Static site, own deployment pipeline</p>
+            <p>
+              Hand-written HTML and CSS with no framework, assembled from partials by a small build
+              script, deployed by pushing to a public repository that the host pulls automatically.
+              A private build repo holds the source; only what should be public ever reaches the
+              public one. Boring on purpose — it costs nothing to run and cannot break at 2am.
+            </p>
+            <ul class="proj-logos">
+              <li><img src="assets/img/stack/python.svg" alt="Python" height="24" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/git.svg" alt="Git" height="22" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="proj-soon">Case study in progress</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+        <div class="about-note">
+          <h3>Want the detail?</h3>
+          <p>
+            The AroFlo case study is the one to read — it covers the architecture, the reasoning,
+            and a failure that got past every automated check I had. If you would rather talk it
+            through, <a href="mailto:nguyencongkhoitran@gmail.com">send me an email</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="wordmark wordmark-light" href="index.html#top">
+            <span class="wordmark-icon" aria-hidden="true">
+              <svg viewBox="0 0 512 512"><defs><linearGradient id="wmF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmF)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+            </span>
+            <span class="wordmark-text">
+              <span class="wordmark-name">DANIEL TRAN</span>
+              <span class="wordmark-sub">Financial Analyst</span>
+            </span>
+          </a>
+          <p class="footer-desc">
+            Finance-trained data engineer in Adelaide, South Australia. I build governed,
+            audit-ready financial data systems that leadership makes decisions on.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Site">
+          <h3>Site</h3>
+          <a href="index.html#about">About</a>
+          <a href="index.html#work">Work</a>
+          <a href="projects.html">Projects</a>
+          <a href="index.html#credentials">Credentials</a>
+          <!-- CV link hidden for now (kept, not deleted):
+          <a href="assets/docs/daniel-tran-cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+          -->
+        </nav>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <a class="footer-contact-link footer-email" href="mailto:nguyencongkhoitran@gmail.com">
+            <img class="footer-contact-icon footer-icon-gmail" src="assets/img/gmail-logo-white-gradient.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>nguyencongkhoitran@gmail.com</span>
+          </a>
+          <a class="footer-contact-link footer-linkedin" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon" src="assets/img/linkedin-white.png" alt="" width="18" height="18" decoding="async" />
+            <span>LinkedIn</span>
+          </a>
+          <a class="footer-contact-link footer-youtube" href="https://www.youtube.com/@DanielTranAustraliaSA" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon footer-icon-youtube" src="assets/img/youtube-logo-white.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>Daniel Tran</span>
+          </a>
+          <p class="footer-location">
+            <svg class="footer-contact-icon footer-icon-location" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="2.4" />
+            </svg>
+            <span>Adelaide, South Australia</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p class="disclaimer">
+          Nothing on this website is financial, tax or legal advice.
+        </p>
+        <p class="copyright">&copy; <span id="year">2026</span> Daniel Tran. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top. Plain anchor: works without JS; JS only handles show/hide. -->
+  <a class="to-top" id="toTop" href="#top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </a>
+
+  <script src="assets/js/portfolio.js?v=3"></script>
+</body>
+</html>

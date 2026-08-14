@@ -26,6 +26,17 @@
   --color-success: #2e7d5b;
   --color-error: #c83e3e;
 
+  /* Index/step numerals and other navigation furniture. Navy-family, not
+     neutral grey, and held at ~3.3:1 on white — readable at a glance but
+     incapable of competing with a heading. Do not use for content.
+     (#7e99b8 measured 2.94:1 — just under the 3:1 large-text floor.) */
+  --color-index: #7290b1;
+
+  /* The one yellow legible as TEXT on light backgrounds (stat unit
+     suffixes). The accent yellows below sit at 1.8–2.2:1 on white — fine
+     as borders, bullets and hover states, never as type. */
+  --color-gold-text: #a67e00;
+
   /* Derived — hover/active states only */
   --color-navy-dark: #082446;
   --color-yellow-dark: #ecb92e;
@@ -405,7 +416,7 @@ svg { width: 100%; height: 100%; display: block; }
   color: var(--color-navy);
   font-variant-numeric: tabular-nums;
 }
-.pstat-num span { color: var(--color-yellow-dark); }
+.pstat-num span { color: var(--color-gold-text); } /* the %/min/h units — yellow-dark was 1.8:1 on white */
 .pstat-lab {
   font-size: .85rem;
   line-height: 1.45;
@@ -1619,6 +1630,490 @@ svg { width: 100%; height: 100%; display: block; }
   }
   .svc:hover { transform: none; }
   .link-more:hover svg { transform: none; }
+}
+
+/* ============================================================
+   PROJECTS — hub page + case-study sub-pages
+   Added 2026-08-09. Builds on .ai-grid / .ai-card rather than
+   introducing a second card system.
+   ============================================================ */
+
+/* ---------- Sub-page hero (compact; sub-pages have no full hero) ---------- */
+.subhero {
+  padding: clamp(2.75rem, 6vw, 4.5rem) 0 clamp(1.75rem, 3.5vw, 2.75rem);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+.subhero h1 {
+  max-width: 20ch;
+  margin: .5rem 0 0;
+  font-size: clamp(1.85rem, 4.2vw, 2.85rem);
+  line-height: 1.14;
+  letter-spacing: -.022em;
+  color: var(--color-navy);
+}
+.subhero-lead {
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.5vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+.subhero-back {
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Project cards ---------- */
+/* Own grid rather than reusing .ai-grid: a 420px floor gives two columns on
+   desktop, so four secondary cards land 2x2 instead of 3 + one orphan. */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+/* Flagship spans the full grid width — it earns the room. */
+.proj-card--lead { grid-column: 1 / -1; }
+
+.proj-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .85rem;
+}
+.proj-status {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .28rem .6rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  border-radius: 999px;
+}
+.proj-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.proj-status--live { color: var(--color-success); background: #e8f5ef; }
+.proj-status--maint { color: var(--color-blue); background: var(--color-blue-light); }
+.proj-flag {
+  padding: .28rem .6rem;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  background: var(--color-yellow);
+  border-radius: 999px;
+}
+
+.proj-card h2 {
+  margin: 0 0 .3rem;
+  font-size: clamp(1.15rem, 2vw, 1.375rem);
+  letter-spacing: -.015em;
+  color: var(--color-navy);
+}
+.proj-role {
+  margin: 0 0 .85rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--color-blue);
+}
+.proj-card > p {
+  margin: 0 0 1.1rem;
+  font-size: .9375rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+/* Metric row — small, factual, no invented precision */
+.proj-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.75rem;
+  margin: 0 0 1.15rem;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+.proj-metric { min-width: 0; }
+.proj-metric-num {
+  display: block;
+  font-size: 1.375rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--color-navy);
+}
+.proj-metric-num span { font-size: .625em; margin-left: .08em; }
+.proj-metric-lab {
+  display: block;
+  max-width: 22ch;
+  margin-top: .2rem;
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.proj-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Uniform optical height overrides the per-image height attributes — a logo row
+   without labels only reads as a set if the marks are the same size. */
+.proj-logos img { display: block; height: 26px; width: auto; opacity: .9; }
+
+.proj-soon {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  font-size: .8125rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- The three acts (case-study narrative) ---------- */
+.acts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.act {
+  padding: clamp(1.4rem, 2.4vw, 1.85rem);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-card);
+}
+.act-lab {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+.act h3 { margin: 0 0 .55rem; font-size: 1.0625rem; }
+.act p {
+  margin: 0 0 .8rem;
+  font-size: .9375rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+.act p:last-child { margin-bottom: 0; }
+
+/* The twist is the point of the whole page — mark it. */
+.act--twist { border-top-color: var(--color-yellow); }
+.act--twist .act-lab { color: var(--color-yellow-dark); }
+.act-punch {
+  padding-top: .8rem;
+  border-top: 1px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-text) !important;
+}
+
+/* ---------- The catch (what the cross-check found) ---------- */
+.catch {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--color-navy);
+  border-radius: var(--radius-large);
+  color: rgba(255, 255, 255, .82);
+}
+.catch p {
+  max-width: 74ch;
+  margin: 0 0 .9rem;
+  font-size: .9375rem;
+  line-height: 1.7;
+}
+.catch p:last-child { margin-bottom: 0; }
+.catch strong, .catch em { color: #fff; }
+.catch-lead {
+  font-size: 1.0625rem !important;
+  font-weight: 600;
+  color: #fff;
+}
+.catch-punch {
+  margin-top: 1.25rem !important;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, .18);
+  font-weight: 600;
+  color: var(--color-yellow) !important;
+}
+
+/* Multi-paragraph callouts (base rule sets margin:0 for the single-p case) */
+.about-note p + p { margin-top: .75rem; }
+
+/* ============================================================
+   CASE STUDY — five-stage lifecycle layout
+   Added 2026-08-10 for the AroFlo page. The reader is mixed
+   (recruiter first, engineer second), so the layout has to make
+   the lead sentence of each stage skimmable on its own and push
+   the detail visually underneath it.
+   ============================================================ */
+
+/* Second standfirst paragraph sits tight under the first */
+.subhero-lead--tight { margin-top: .65rem; }
+
+/* ---------- Stage rail (contents) ---------- */
+.rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem clamp(1rem, 2.5vw, 1.75rem);
+  padding: clamp(.9rem, 1.8vw, 1.15rem) clamp(1.2rem, 2.4vw, 1.6rem);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-card);
+}
+.rail-lab {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.rail-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem clamp(.9rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rail-list a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .4rem;
+  font-size: .9375rem;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+.rail-list a:hover { color: var(--color-blue); }
+/* Same index colour as .stage-num — these ARE the same five numbers, so they
+   must not be two different colours. Was --color-yellow-dark, which at .75rem
+   on white is ~1.8:1: the least readable text on the page, and yellow reads as
+   "accent/important" when a step index is neither. */
+.rail-num {
+  font-size: .75rem;
+  font-weight: 800;
+  color: var(--color-index);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Stage ---------- */
+.stage { padding-bottom: clamp(2.25rem, 5vw, 3.5rem); }
+.stage + .stage {
+  padding-top: clamp(2.25rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--color-border);
+}
+/* Offset for the fixed header when jumping from the rail */
+.stage[id] { scroll-margin-top: 90px; }
+
+.stage-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(.9rem, 2vw, 1.4rem);
+  align-items: start;
+  margin-bottom: clamp(1.1rem, 2.2vw, 1.5rem);
+}
+/* The index numeral is navigation ("you are at 2 of 5"), not content, so it
+   must be legible without pulling rank on the lead. It was --color-border
+   (#dce3ea = 1.3:1 on white) which read as a rendering fault rather than a
+   design choice, while simultaneously being the LARGEST thing in the header —
+   biggest element, least information. Now ~3:1 and a size step below the lead,
+   so weight and importance finally point the same way. */
+.stage-num {
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  color: var(--color-index);
+  font-variant-numeric: tabular-nums;
+}
+.stage-title {
+  margin: 0 0 .45rem;
+  font-size: .8125rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+/* The lead is the whole layering rule made visible: a skim-reader who
+   reads only these five sentences must still get the argument. */
+.stage-lead {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.018em;
+  color: var(--color-navy);
+}
+
+.stage-body > * { max-width: 68ch; }
+.stage-body p {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+.stage-body strong { color: var(--color-navy); font-weight: 700; }
+.stage-body .doctrine { margin: 0 0 1.25rem; }
+.stage-body code {
+  padding: .1em .35em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .875em;
+  background: var(--color-blue-light);
+  border-radius: 4px;
+  color: var(--color-navy);
+}
+/* Sub-head = label + content, and they are not equally important. "Act one"
+   is an index; "Full loading" is the actual subject. Previously both sat at
+   one navy/700/1.0625rem — indistinguishable from each other, and only 6%
+   larger than body text, so the section break barely registered. Now the
+   label is small caps in secondary, separated by a hairline rule rather than
+   a literal "|" glyph, and the subject carries the navy weight. */
+.stage-sub {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: clamp(1.75rem, 3.4vw, 2.25rem) 0 .85rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -.008em;
+  color: var(--color-navy);
+}
+.stage-sub-lab {
+  flex: none;
+  padding-right: .55rem;
+  border-right: 1px solid var(--color-border);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.stage-body > .stage-sub:first-child { margin-top: 0; }
+/* Closing line of a stage — carries the argument, so it reads at body
+   colour rather than secondary. */
+.stage-punch {
+  margin-bottom: 0 !important;
+  font-weight: 600;
+  color: var(--color-text) !important;
+}
+
+/* ---------- Pull quote ---------- */
+.pull {
+  max-width: 60ch;
+  margin: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(1.1rem, 2.2vw, 1.5rem);
+  border-left: 3px solid var(--color-blue);
+  background: var(--color-blue-light);
+  border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+  font-size: clamp(1.0625rem, 1.8vw, 1.1875rem);
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--color-navy);
+}
+.pull--accent { border-left-color: var(--color-yellow); background: #fff8e6; }
+
+/* ---------- Diagrams ---------- */
+.stage-figure { margin: clamp(1.5rem, 3vw, 2rem) 0; max-width: none; }
+.dia { display: block; width: auto; max-width: 100%; height: auto; margin: 0 auto; }
+/* Portrait diagrams render tall — cap the width so the height stays
+   sane on desktop. They still scale down freely on mobile. */
+.dia--portrait { max-width: min(100%, 500px); }
+/* Landscape diagram breaks out of the narrow reading column so it can
+   show at close to natural size instead of shrinking the labels. */
+.stage-figure--wide {
+  width: min(1120px, 92vw);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---------- Incident panel additions ---------- */
+.catch-list {
+  max-width: 74ch;
+  margin: 0 0 .9rem;
+  padding-left: 1.15rem;
+  list-style: none;
+}
+.catch-list li {
+  position: relative;
+  margin-bottom: .45rem;
+  padding-left: .9rem;
+  font-size: .9375rem;
+  line-height: 1.65;
+}
+.catch-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 2px;
+  background: var(--color-yellow);
+}
+.stage-body .catch { margin: 0 0 clamp(1.5rem, 3vw, 2rem); max-width: none; }
+/* Re-assert the navy panel's own colours. The generic .stage-body p /
+   .stage-body strong rules above match at equal-or-higher specificity and
+   would otherwise repaint this text navy-on-navy — i.e. invisible. */
+.stage-body .catch p { color: rgba(255, 255, 255, .82); }
+.stage-body .catch .catch-lead { color: #fff; }
+.stage-body .catch strong,
+.stage-body .catch em { color: #fff; }
+.stage-body .catch .catch-punch { color: var(--color-yellow); }
+
+/* ---------- Ownership close ---------- */
+.own {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-yellow);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-card);
+}
+.own p {
+  max-width: 72ch;
+  margin: 0;
+  font-size: .9375rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.own p + p { margin-top: .85rem; }
+.own-lead {
+  font-size: clamp(1.0625rem, 1.8vw, 1.1875rem) !important;
+  font-weight: 600;
+  color: var(--color-navy) !important;
+}
+
+@media (max-width: 640px) {
+  .stage-head { grid-template-columns: 1fr; gap: .5rem; }
+  .stage-num { font-size: 1.5rem; }
 }
 
 /* ---------- PRINT ---------- */

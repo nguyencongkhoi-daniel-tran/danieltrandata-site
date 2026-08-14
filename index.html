@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/portfolio.css?v=15" />
+  <link rel="stylesheet" href="assets/css/portfolio.css?v=18" />
 
   <!-- Structured data: helps Google understand who this is -->
   <script type="application/ld+json">
@@ -80,6 +80,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#stack">Stack</a></li>
           <li><a href="#work">Work</a></li>
+          <li><a href="projects.html">Projects</a></li>
           <li><a href="#ai">AI</a></li>
           <li><a href="#credentials">Credentials</a></li>
           <li><a href="#beyond">Beyond</a></li>
@@ -475,14 +476,16 @@
           <h3 class="case-sub">The architecture</h3>
           <figure class="case-diagram case-diagram--scroll">
             <div class="case-diagram-frame">
-              <img src="assets/img/architecture.svg"
-                   alt="Architecture diagram: source systems feed an hourly incremental pipeline (change detector, raw capture, validator, idempotent loader) and a daily full-load pipeline; both are cross-checked by an automated health check into one governed SQL warehouse that Power BI reads."
+              <!-- ?v=2 busts the 7-day CDN cache: same URL, changed content (daily → hourly label) -->
+              <img src="assets/img/architecture.svg?v=2"
+                   alt="Architecture diagram: source systems feed an hourly incremental pipeline (change detector, raw capture, validator, idempotent loader) and an hourly full-extract pipeline; both are cross-checked by an automated health check into one governed SQL warehouse that Power BI reads."
                    width="2267" height="375" loading="lazy" decoding="async" />
             </div>
             <p class="case-diagram-hint" aria-hidden="true">Scroll to see the full flow &rarr;</p>
             <figcaption>
-              Two pipelines — a fast hourly patch and a daily full-load — each cross-checked against
-              the other, feeding one governed warehouse that reporting reads from.
+              Two pipelines — an hourly incremental patch and an hourly full extract — each
+              cross-checked against the other, feeding one governed warehouse that reporting
+              reads from.
             </figcaption>
           </figure>
 
@@ -546,6 +549,13 @@
               outage that looks fine is the one that costs you.
             </p>
           </div>
+
+          <!-- Path to the full lifecycle case study — this section is the
+               summary; the projects page carries the whole story. -->
+          <a class="link-more" href="projects/aroflo-data-platform.html">
+            Read the full case study — design, build, operate, audit, recover
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -844,6 +854,7 @@
           <h3>Site</h3>
           <a href="#about">About</a>
           <a href="#work">Work</a>
+          <a href="projects.html">Projects</a>
           <a href="#credentials">Credentials</a>
           <!-- CV link hidden for now (kept, not deleted):
           <a href="assets/docs/daniel-tran-cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
