@@ -465,6 +465,16 @@ svg { width: 100%; height: 100%; display: block; }
 .cm-logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: clamp(1rem, 2.2vw, 1.5rem); min-height: 30px; }
 .cm-logo { width: auto; display: block; filter: brightness(0) invert(1); opacity: .92; }
 .cm-more { font-size: .8rem; font-weight: 600; color: rgba(255, 255, 255, .5); }
+/* Single source system: logo leads, descriptor sits beneath it as a caption —
+   same shape as .cm-role (icon above label), so the three columns of the band
+   share one rhythm. Caption matched to .cm-role span, not .cm-more. */
+.cm-logos--stack { flex-direction: column; gap: .55rem; }
+.cm-logos--stack .cm-more {
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .035em;
+  color: rgba(255, 255, 255, .72);
+}
 
 .case-sub { margin: clamp(.25rem, 1vw, .75rem) 0 0; font-size: 1.25rem; }
 

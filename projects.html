@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/portfolio.css?v=18" />
+  <link rel="stylesheet" href="assets/css/portfolio.css?v=19" />
 
   <!-- Structured data: helps Google understand who this is -->
   <script type="application/ld+json">
@@ -161,29 +161,37 @@
             <div class="proj-head">
               <span class="proj-status proj-status--live">In production</span>
             </div>
-            <h2>Gearbox fleet &amp; plant extractor</h2>
-            <p class="proj-role">Built and validated against production</p>
+            <h2>Gearbox Vehicles, Plant &amp; Equipment Report</h2>
+            <p class="proj-role">Investigated, built and validated against production</p>
             <p>
-              A paginated, count-validated extractor for Gearbox, the fleet and plant management
-              system. The script it replaced read only the first page of results and reported
-              success — so it had been quietly showing an eighth of the data. Mine walks every page
-              and reconciles the total before it trusts a single row.
+              One row per vehicle, plant item and piece of equipment — what it is, when it was last
+              safety-checked, by whom, and its latest odometer and hour readings. It joins an API to
+              a spreadsheet export because the readings are write-only and cannot be pulled from the
+              API at all. The extract it replaced had been reading one page of nine.
             </p>
             <ul class="proj-metrics">
               <li class="proj-metric">
-                <span class="proj-metric-num">801</span>
-                <span class="proj-metric-lab">records across 9 pages, count-validated</span>
+                <span class="proj-metric-num">92</span>
+                <span class="proj-metric-lab">assets in one register, refreshed daily</span>
               </li>
               <li class="proj-metric">
                 <span class="proj-metric-num">12.5<span>%</span></span>
-                <span class="proj-metric-lab">was all the previous script could see</span>
+                <span class="proj-metric-lab">was all the previous extract could see</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">13<span>mth</span></span>
+                <span class="proj-metric-lab">staleness caught before it shipped</span>
               </li>
             </ul>
             <ul class="proj-logos">
-              <li><img src="assets/img/stack/python.svg" alt="Python" height="24" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/sharepoint.svg" alt="SharePoint" height="22" loading="lazy" decoding="async" /></li>
               <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
             </ul>
-            <p class="proj-soon">Write-up in progress</p>
+            <a class="link-more" href="projects/gearbox-asset-report.html">
+              The build in depth
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
           </article>
 
           <!-- 3 — EMISSIONS -->

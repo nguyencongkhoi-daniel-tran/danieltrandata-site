@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gearbox vehicles, plant & equipment report — Daniel Tran</title>
+  <meta name="description" content="Case study: a fleet, plant and equipment register built from two sources - a paginated API and a web report export - because the pre-start readings are write-only. Feeds pre-start compliance and Fuel Tax Credit substantiation." />
+  <meta name="author" content="Daniel Tran" />
+
+  <!-- ============================================================
+       PORTFOLIO — danieltrandata.com
+       Static site: this file + assets/css/portfolio.css
+       + assets/js/portfolio.js. No build step, no framework.
+       ============================================================ -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Asset data the finance team can count on" />
+  <meta property="og:description" content="The extract it replaced was reading one page of nine. Why the obvious design was impossible, and the stale reading that looked completely normal." />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://danieltrandata.com/projects/gearbox-asset-report.html" />
+  <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Asset data the finance team can count on" />
+  <meta name="twitter:description" content="The extract it replaced was reading one page of nine. Why the obvious design was impossible, and the stale reading that looked completely normal." />
+  <meta name="twitter:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+
+  <link rel="canonical" href="https://danieltrandata.com/projects/gearbox-asset-report.html" />
+
+  <!-- Favicons — 'D + data-bars' mark (F1). ?v=4 busts Hostinger CDN cache -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/portfolio.css?v=19" />
+
+  <!-- Structured data: helps Google understand who this is -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Tran",
+    "url": "https://danieltrandata.com",
+    "jobTitle": "Financial Analyst",
+    "description": "Finance-trained data engineer specialising in finance-grade data pipelines, automation and decision intelligence.",
+    "address": { "@type": "PostalAddress", "addressRegion": "South Australia", "addressCountry": "AU" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Torrens University Australia" },
+    "sameAs": [
+      "https://www.linkedin.com/in/nguyen-daniel-tran-accounting/",
+      "https://www.youtube.com/@DanielTranAustraliaSA"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran — home">
+        <span class="wordmark-icon" aria-hidden="true">
+          <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+        </span>
+        <span class="wordmark-text">
+          <span class="wordmark-name">DANIEL TRAN</span>
+          <span class="wordmark-sub">Financial Analyst</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#stack">Stack</a></li>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../index.html#ai">AI</a></li>
+          <li><a href="../index.html#credentials">Credentials</a></li>
+          <li><a href="../index.html#beyond">Beyond</a></li>
+          <li class="nav-cta-item"><a class="btn btn-yellow btn-sm" href="mailto:nguyencongkhoitran@gmail.com">Get in touch</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top" tabindex="-1"></span>
+
+    <!-- ============================================================
+         Gearbox case study — structured as FOUR STAGES
+         (Investigate / Design / Build / Deliver), per
+         "Gearbox Case Study — Content v1" (vault, 02 Brand & Offer).
+
+         Why this structure differs from AroFlo's five: AroFlo's claim
+         is "I can own a whole platform alone" — a lifecycle claim.
+         This page's claim is "I find out what is actually true before
+         I build". The interesting work is the investigation, so the
+         page is four stages, same visual system. Structure follows the
+         story, not a template.
+
+         LAYERING RULE (reader is recruiter-first, technical-second):
+         every stage opens with one plain-English lead sentence a
+         non-technical reader can repeat to someone else.
+
+         Sanitised per Infrastructure & Config Reference §9 and the
+         content note's sanitisation record: no client site names
+         (the mine sites are the CLIENT's), no employee names, no
+         registrations/VINs, no tenant URLs, no employer name.
+         ============================================================ -->
+
+    <!-- ============ SUB-HERO ============ -->
+    <section class="subhero">
+      <div class="wrap">
+        <p class="kicker"><a class="subhero-back" href="../projects.html">&larr; Projects</a></p>
+        <h1>Asset data the finance team can count on</h1>
+        <p class="subhero-lead">
+          A fleet and plant register that has to answer two unrelated questions at once: are crews
+          actually doing their pre-start safety checks, and how many kilometres has each asset done.
+          One is a safety question. The other is a tax question. Both were being answered from data
+          nobody had verified.
+        </p>
+        <p class="subhero-lead subhero-lead--tight">
+          Before I built anything, I found out that the existing extract had been reading one page
+          of nine — and that the data everyone assumed came from the API could not come from the
+          API at all.
+        </p>
+      </div>
+    </section>
+
+    <section class="sec sec-tint">
+      <div class="wrap">
+        <div class="case">
+
+          <!-- meta strip: role / source / stack -->
+          <div class="case-meta">
+            <div>
+              <span class="case-meta-lab">My role</span>
+              <div class="cm-roles">
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15 L20 20"/><path class="acc" d="M8 10.5 H13"/></svg>
+                  <span>Investigator</span>
+                </span>
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="acc" d="M12 3 L20.5 8 L12 13 L3.5 8 Z"/><path d="M3.5 12 L12 17 L20.5 12"/><path d="M3.5 15.5 L12 20.5 L20.5 15.5"/></svg>
+                  <span>Builder</span>
+                </span>
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 V4"/><path d="M4 20 H20"/><rect x="7.5" y="13" width="3" height="4.5"/><rect class="acc" x="12.5" y="9" width="3" height="8.5"/><rect x="17.5" y="6" width="3" height="11.5"/></svg>
+                  <span>Analyst</span>
+                </span>
+              </div>
+            </div>
+            <div>
+              <span class="case-meta-lab">Source system</span>
+              <div class="cm-logos cm-logos--stack">
+                <img class="cm-logo" src="../assets/img/stack/gearbox.png" alt="Gearbox" height="24" loading="lazy" decoding="async" />
+                <span class="cm-more">fleet &amp; plant management</span>
+              </div>
+            </div>
+            <div>
+              <span class="case-meta-lab">Built with</span>
+              <div class="cm-logos">
+                <img class="cm-logo" src="../assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" />
+                <img class="cm-logo" src="../assets/img/stack/sharepoint.svg" alt="SharePoint" height="24" loading="lazy" decoding="async" />
+                <img class="cm-logo" src="../assets/img/stack/excel.svg" alt="Excel" height="24" loading="lazy" decoding="async" />
+                <img class="cm-logo" src="../assets/img/stack/power-bi.svg" alt="Power BI" height="24" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage rail -->
+          <nav class="rail" aria-label="On this page">
+            <span class="rail-lab">On this page</span>
+            <ol class="rail-list">
+              <li><a href="#investigate"><span class="rail-num">01</span> Investigate</a></li>
+              <li><a href="#design"><span class="rail-num">02</span> Design</a></li>
+              <li><a href="#build"><span class="rail-num">03</span> Build</a></li>
+              <li><a href="#deliver"><span class="rail-num">04</span> Deliver</a></li>
+            </ol>
+          </nav>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE FOUR STAGES ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+
+        <!-- ---------- 01 INVESTIGATE ---------- -->
+        <article class="stage" id="investigate">
+          <header class="stage-head">
+            <span class="stage-num">01</span>
+            <div>
+              <h2 class="stage-title">Investigate</h2>
+              <p class="stage-lead">
+                The first thing I did was not write code. It was to find out whether the numbers
+                already in use were true — and they weren't.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <p>
+              Two findings, both from reading the vendor's API documentation end to end and then
+              testing it against production rather than trusting either one alone.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Finding one</span> The extract had been reading one page of nine</h3>
+            <p>
+              The existing production script fetched page one and reported success. It had been
+              doing that quietly for long enough that nobody questioned the totals.
+            </p>
+            <p>
+              The cause is easy to miss and impossible to see in the output: this API paginates with
+              an <strong>RFC 5988 <code>Link</code> header</strong>, not the <code>?page=2</code>
+              convention almost every other API uses. If your code doesn't parse that header you
+              receive the first hundred records, a <code>200 OK</code>, and no indication whatever
+              that more exist.
+            </p>
+            <p>Measured against the fault-reports endpoint:</p>
+            <blockquote class="pull">
+              801 records across nine pages. A page-one-only read sees 100 of them —
+              <strong>12.5%</strong>.
+            </blockquote>
+            <p class="stage-punch">
+              Nothing errors. Nothing warns. The report renders, and it is wrong by a factor of
+              eight.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Finding two</span> The key data cannot come from the API</h3>
+            <p>
+              The pre-start records — the safety checks, with the odometer and hour readings inside
+              them — are <strong>write-only</strong>. You can push a pre-start into the system;
+              there is no endpoint that returns one. I verified this across the entire vendor
+              documentation repository, then proved it against production: <code>GET</code> on that
+              endpoint returns <strong>404</strong>.
+            </p>
+            <p>
+              That matters more than it sounds. It means the obvious architecture — one API, one
+              pipeline, one table — was never available. Any register combining asset details with
+              pre-start readings has to join <strong>two sources of different kinds</strong>: an
+              API, and a spreadsheet export from the vendor's web reporting.
+            </p>
+            <blockquote class="pull pull--accent">
+              An hour of reading the documentation properly changed the design more than any amount
+              of coding would have. The build I would have shipped on day one would have been
+              confidently wrong.
+            </blockquote>
+          </div>
+        </article>
+
+        <!-- ---------- 02 DESIGN ---------- -->
+        <article class="stage" id="design">
+          <header class="stage-head">
+            <span class="stage-num">02</span>
+            <div>
+              <h2 class="stage-title">Design</h2>
+              <p class="stage-lead">
+                Two sources that don't know about each other have to produce one row per asset — and
+                that row has to be the latest truth, not just a truth.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <p>The design that survived the investigation:</p>
+            <ul class="doctrine">
+              <li>
+                <strong>The asset register</strong> comes from the API — every vehicle, plant item
+                and piece of equipment, with its make, model, type, group and service status.
+              </li>
+              <li>
+                <strong>The pre-start readings</strong> come from an export of the vendor's own web
+                report — one row per pre-start <em>event</em>, so a single asset has many rows.
+              </li>
+              <li>
+                <strong>The join</strong> is the fleet number, the one key both sides genuinely
+                share.
+              </li>
+            </ul>
+            <p>
+              The hard part is not the join. It is the word <em>latest</em>.
+            </p>
+            <p>
+              The pre-start export is a <strong>transaction register</strong>: hundreds of rows,
+              many per asset, going back months. What the report needs is one row per asset — its
+              most recent completed check. That reduction is a business rule, and getting it wrong
+              does not produce an error. It produces a plausible old number.
+            </p>
+            <ul class="doctrine">
+              <li>Keep only <strong>completed</strong> checks — an abandoned check evidences nothing.</li>
+              <li>Within each asset, sort by <strong>date descending</strong>, then by
+                  <strong>pre-start number descending</strong>.</li>
+              <li>Take the first row.</li>
+            </ul>
+            <p>
+              <strong>Why the second sort key exists:</strong> the export carries a date, not a
+              timestamp. Two checks on the same asset on the same day are indistinguishable by date
+              alone. The pre-start number is sequential, so the higher number is the safer proxy for
+              "later". Without that tie-breaker the rule silently picks whichever row the tool
+              happened to return first.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------- 03 BUILD ---------- -->
+        <article class="stage" id="build">
+          <header class="stage-head">
+            <span class="stage-num">03</span>
+            <div>
+              <h2 class="stage-title">Build</h2>
+              <p class="stage-lead">
+                The register refreshes itself every morning, and it checks its own arithmetic before
+                anyone reads it.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <p>
+              <strong>The extraction.</strong> A scheduled flow runs daily at 5am, before anyone is
+              looking at a report. It:
+            </p>
+            <ul class="doctrine">
+              <li>
+                walks <strong>every</strong> page by following the <code>Link</code> header until
+                the header is absent — the fix for the original defect;
+              </li>
+              <li>
+                asserts that the number of records collected <strong>equals the total the server
+                declared</strong> in its own count header. A mismatch is a hard failure, not a
+                logged warning;
+              </li>
+              <li>
+                writes the <strong>raw response</strong> to a document library before anything
+                parses it, so a flattening mistake is fixed by re-reading a file rather than
+                re-querying the API;
+              </li>
+              <li>
+                respects a rate limit of <strong>20 requests per 15 seconds</strong> by running at
+                18 — a documented architectural constraint, not something to discover in production;
+              </li>
+              <li>
+                <strong>emails on failure</strong>, with the error handler tested rather than
+                assumed.
+              </li>
+            </ul>
+            <p>
+              <strong>The transformation.</strong> The register is built in Power Query: the asset
+              dimension from the raw JSON, the latest-check snapshot from the export, then a left
+              join on fleet number so <strong>every asset appears exactly once — including the ones
+              that have never been checked</strong>, which are precisely the ones a compliance
+              question is about.
+            </p>
+
+            <!-- Navy panel: the defect is the climax of the page -->
+            <div class="catch">
+              <p class="catch-lead">
+                The first version of the latest-check rule sorted the whole table, grouped by asset,
+                then took the first row of each group. It looked correct. It passed a glance.
+              </p>
+              <p>
+                It was wrong, because <strong>the tool does not guarantee that a global sort
+                survives into each grouped sub-table.</strong> Caught in validation, on a single
+                asset:
+              </p>
+              <ul class="catch-list">
+                <li>Date chosen: July 2025 — when the correct row was August 2026.</li>
+                <li>Hours reported: 16,682 — when the true reading was 17,404.</li>
+              </ul>
+              <p>
+                <strong>Thirteen months stale, and 722 operating hours understated — on a row that
+                looked completely normal.</strong> No error, no null, no blank cell. Just an old
+                number sitting where a current one belonged.
+              </p>
+            </div>
+
+            <p>
+              The fix is to <strong>sort inside each group</strong> rather than trusting an earlier
+              sort to survive it — a one-line change in shape, and the difference between a register
+              you can hand to finance and one you cannot.
+            </p>
+            <blockquote class="pull pull--accent">
+              The wrong number that looks right is more dangerous than the crash. A crash tells you.
+              A stale odometer reading does not.
+            </blockquote>
+          </div>
+        </article>
+
+        <!-- ---------- 04 DELIVER ---------- -->
+        <article class="stage" id="deliver">
+          <header class="stage-head">
+            <span class="stage-num">04</span>
+            <div>
+              <h2 class="stage-title">Deliver</h2>
+              <p class="stage-lead">
+                The register answers a safety question and a tax question from the same row — and it
+                exposed a third problem nobody had gone looking for.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Use one</span> Pre-start compliance</h3>
+            <p>
+              One row per asset showing when it was last checked, by whom, and whether it has been
+              checked at all. That turns "are the crews doing their checks?" from an impression into
+              a list — including which sites are consistent, and which assets have gone untouched.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Use two</span> Fuel Tax Credit substantiation</h3>
+            <p>
+              Fuel Tax Credits are claimed on fuel used in eligible business activity, and a claim
+              is only as defensible as the usage evidence behind it. The register gives the finance
+              team <strong>per-asset kilometres and operating hours taken from the operators' own
+              recorded checks</strong>, rather than an estimate.
+            </p>
+            <p class="stage-punch">
+              This is the part I care about most: a finance outcome produced by an engineering fix,
+              and auditable back to a source record.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">And</span> What it found on the way</h3>
+            <p>
+              Looking at every asset at once surfaced data problems nobody had measured:
+            </p>
+            <ul class="doctrine">
+              <li>
+                <strong>The same physical asset entered twice</strong> under two different fleet
+                numbers — in one case proven by an engine number appearing <em>inside</em> the other
+                record's serial number. Any count of "how many of these do we own" was wrong.
+              </li>
+              <li>
+                <strong>Two active records sharing one registration</strong> — so registration was
+                not the unique key it appeared to be.
+              </li>
+              <li>
+                <strong>Build dates stored as free text</strong> — five different formats plus
+                blanks in a single pull. Cannot be cast to a date without a parser and a fallback.
+              </li>
+              <li>
+                <strong>Sold assets returned by default</strong>, with no filter. Anything counting
+                "the fleet" over-counts unless it excludes them explicitly.
+              </li>
+              <li>
+                <strong>Empty strings and nulls used interchangeably</strong> in the same column, so
+                the same condition behaves differently on different rows.
+              </li>
+            </ul>
+            <p class="stage-punch">
+              None of these are extraction bugs — the extract is faithfully reporting what the
+              system holds. They are ownership problems that were invisible until something looked
+              at every asset at once. Surfacing them is part of the value, not a side effect.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ IMPACT + CLOSE ============ -->
+    <section class="sec sec-tint">
+      <div class="wrap">
+        <div class="case">
+
+          <div class="pstat case-impact" aria-label="Impact">
+            <div class="wrap pstat-grid">
+              <div class="pstat-item">
+                <span class="pstat-num">92</span>
+                <span class="pstat-lab">assets in one register, refreshed daily</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">12.5<span>%</span></span>
+                <span class="pstat-lab">was all the previous extract could see</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">13<span>mth</span></span>
+                <span class="pstat-lab">staleness caught in validation, before it shipped</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">2</span>
+                <span class="pstat-lab">independent sources reconciled to one row per asset</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-cols case-cols-2">
+            <article class="about-block">
+              <h3>What the design assumes</h3>
+              <ul class="doctrine">
+                <li>
+                  The asset endpoint has <strong>no modified-timestamp</strong>, so it is a full
+                  load every run by necessity, not by choice. Correct at this size; it would need
+                  rethinking at ten times the size.
+                </li>
+                <li>
+                  The register is <strong>eight records from a silent failure</strong> on any tool
+                  still reading page one only — 92 assets fit inside one 100-record page today. The
+                  failure is pending, not hypothetical, which is the whole argument for fixing
+                  pagination before it bites.
+                </li>
+                <li>
+                  <strong>Four endpoints return 403</strong>, including the one carrying
+                  purchase-order costs — the most finance-relevant data in the system. That is
+                  module licensing, not a code problem, and no amount of engineering fixes it.
+                </li>
+                <li>
+                  Site and operator allocation <strong>cannot be sourced from this API</strong> —
+                  the fields exist and are empty on every record. The register reports what it can
+                  evidence and stays silent on what it cannot.
+                </li>
+              </ul>
+            </article>
+            <article class="about-block">
+              <h3>What I'd do differently</h3>
+              <ul class="doctrine">
+                <li>
+                  Test the grouping rule against a <strong>known answer</strong> from the first
+                  version, not the third. I found the stale-row defect by checking one asset against
+                  its real latest reading — that check should have existed before the rule did.
+                </li>
+                <li>
+                  Ask <strong>what the number will be used for</strong> earlier. Once I knew
+                  kilometres were feeding a tax position, the accuracy bar moved. It should have
+                  been set there from the start rather than raised on discovery.
+                </li>
+                <li>
+                  Treat <strong>data-quality findings as a deliverable</strong>, not a by-product.
+                  The duplicate assets and free-text dates needed an owner and a decision, not just
+                  a note in my own file.
+                </li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="own">
+            <p class="own-lead">
+              I read the API documentation end to end, proved what it could and could not do, found
+              a production defect that had stayed invisible because it fails quietly, and built the
+              register that replaced it. It runs itself every morning and validates its own counts
+              before anyone sees a number.
+            </p>
+            <p>
+              The work I want is exactly this: the part where someone has to decide whether a number
+              is good enough to put in front of a regulator.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+        <div class="about-note">
+          <h3>Happy to go deeper</h3>
+          <p>
+            I can walk through the pagination fix, the latest-row rule, or the reasoning behind any
+            decision above — <a href="mailto:nguyencongkhoitran@gmail.com">get in touch</a>, or see
+            <a href="../projects.html">the other projects</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="wordmark wordmark-light" href="../index.html#top">
+            <span class="wordmark-icon" aria-hidden="true">
+              <svg viewBox="0 0 512 512"><defs><linearGradient id="wmF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmF)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+            </span>
+            <span class="wordmark-text">
+              <span class="wordmark-name">DANIEL TRAN</span>
+              <span class="wordmark-sub">Financial Analyst</span>
+            </span>
+          </a>
+          <p class="footer-desc">
+            Finance-trained data engineer in Adelaide, South Australia. I build governed,
+            audit-ready financial data systems that leadership makes decisions on.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Site">
+          <h3>Site</h3>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#work">Work</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../index.html#credentials">Credentials</a>
+          <!-- CV link hidden for now (kept, not deleted):
+          <a href="../assets/docs/daniel-tran-cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+          -->
+        </nav>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <a class="footer-contact-link footer-email" href="mailto:nguyencongkhoitran@gmail.com">
+            <img class="footer-contact-icon footer-icon-gmail" src="../assets/img/gmail-logo-white-gradient.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>nguyencongkhoitran@gmail.com</span>
+          </a>
+          <a class="footer-contact-link footer-linkedin" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon" src="../assets/img/linkedin-white.png" alt="" width="18" height="18" decoding="async" />
+            <span>LinkedIn</span>
+          </a>
+          <a class="footer-contact-link footer-youtube" href="https://www.youtube.com/@DanielTranAustraliaSA" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon footer-icon-youtube" src="../assets/img/youtube-logo-white.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>Daniel Tran</span>
+          </a>
+          <p class="footer-location">
+            <svg class="footer-contact-icon footer-icon-location" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="2.4" />
+            </svg>
+            <span>Adelaide, South Australia</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p class="disclaimer">
+          Nothing on this website is financial, tax or legal advice.
+        </p>
+        <p class="copyright">&copy; <span id="year">2026</span> Daniel Tran. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top. Plain anchor: works without JS; JS only handles show/hide. -->
+  <a class="to-top" id="toTop" href="#top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </a>
+
+  <script src="../assets/js/portfolio.js?v=3"></script>
+</body>
+</html>
