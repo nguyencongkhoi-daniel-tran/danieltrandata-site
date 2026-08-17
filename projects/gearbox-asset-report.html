@@ -280,8 +280,10 @@
                 and piece of equipment, with its make, model, type, group and service status.
               </li>
               <li>
-                <strong>The pre-start readings</strong> come from an export of the vendor's own web
-                report — one row per pre-start <em>event</em>, so a single asset has many rows.
+                <strong>The pre-start readings</strong> come from the vendor's own web report,
+                which <strong>I export by hand</strong> — there is no endpoint to automate against,
+                so there is nothing for a scheduler to call. One row per pre-start <em>event</em>,
+                so a single asset has many rows.
               </li>
               <li>
                 <strong>The join</strong> is the fleet number, the one key both sides genuinely
@@ -320,8 +322,8 @@
             <div>
               <h2 class="stage-title">Build</h2>
               <p class="stage-lead">
-                The register refreshes itself every morning, and it checks its own arithmetic before
-                anyone reads it.
+                Everything the API can deliver refreshes itself every morning and checks its own
+                arithmetic. One step stays manual — that is the vendor's constraint, not a shortcut.
               </p>
             </div>
           </header>
@@ -497,6 +499,14 @@
             <article class="about-block">
               <h3>What the design assumes</h3>
               <ul class="doctrine">
+                <li>
+                  <strong>The pre-start export is manual, and cannot be otherwise.</strong> Those
+                  records are write-only — you can push a pre-start in, there is no endpoint to
+                  read one back. I confirmed that across the endpoint documentation, the readme
+                  index and the vendor's own Postman collection, then against production. Until
+                  the vendor exposes a read endpoint, no amount of scheduling removes that step,
+                  and pretending otherwise would just hide it.
+                </li>
                 <li>
                   The asset endpoint has <strong>no modified-timestamp</strong>, so it is a full
                   load every run by necessity, not by choice. Correct at this size; it would need
