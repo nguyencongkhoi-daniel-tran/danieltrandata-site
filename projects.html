@@ -202,16 +202,35 @@
             <h2>Scope 1 &amp; 2 emissions reporting</h2>
             <p class="proj-role">Automated carbon reporting</p>
             <p>
-              Electricity and industrial gas consumption pulled from supplier portals on a schedule,
-              converted to Scope 1 and Scope 2 emissions, and reported in Power BI. Different
-              regulatory domain to finance, same discipline: save the raw reading, validate the
-              conversion, make the number defensible to an auditor.
+              One extraction pattern, built for a clean supplier and proven against a much messier
+              one — a folder mixing invoices, credit notes and purchase orders together. Different
+              regulatory domain to finance, same discipline: the incremental version that shipped
+              first would have quietly overwritten three years of invoice history, caught by a test
+              written to force that exact failure before it ever touched production.
             </p>
+            <ul class="proj-metrics">
+              <li class="proj-metric">
+                <span class="proj-metric-num">120<span>&rarr;112</span></span>
+                <span class="proj-metric-lab">PDFs classified, only the real invoices parsed</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">13<span>&rarr;2</span></span>
+                <span class="proj-metric-lab">rows the first version would have left standing</span>
+              </li>
+              <li class="proj-metric">
+                <span class="proj-metric-num">4</span>
+                <span class="proj-metric-lab">invoice layouts handled in one mixed folder</span>
+              </li>
+            </ul>
             <ul class="proj-logos">
               <li><img src="assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/stack/sharepoint.svg" alt="SharePoint" height="22" loading="lazy" decoding="async" /></li>
               <li><img src="assets/img/stack/power-bi.svg" alt="Power BI" height="22" loading="lazy" decoding="async" /></li>
             </ul>
-            <p class="proj-soon">Write-up in progress</p>
+            <a class="link-more" href="projects/ems-carbon-reporting.html">
+              The build in depth
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
           </article>
 
           <!-- 4 — SEMANTIC LAYER -->

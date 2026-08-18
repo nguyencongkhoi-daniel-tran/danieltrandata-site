@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scope 1 & 2 emissions reporting — Daniel Tran</title>
+  <meta name="description" content="Case study: two n8n pipelines that turn supplier PDF invoices into structured emissions data for Power BI. One template, proven against a mixed-format second supplier, plus an incremental-processing defect caught before it reached production." />
+  <meta name="author" content="Daniel Tran" />
+
+  <!-- ============================================================
+       PORTFOLIO — danieltrandata.com
+       Static site: this file + assets/css/portfolio.css
+       + assets/js/portfolio.js. No build step, no framework.
+       ============================================================ -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Built once, proven on the messier second case" />
+  <meta property="og:description" content="The version that shipped first would have quietly overwritten three years of invoice history on its second run. Why a test was built to force that failure before it could happen for real." />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://danieltrandata.com/projects/ems-carbon-reporting.html" />
+  <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Built once, proven on the messier second case" />
+  <meta name="twitter:description" content="The version that shipped first would have quietly overwritten three years of invoice history on its second run. Why a test was built to force that failure before it could happen for real." />
+  <meta name="twitter:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+
+  <link rel="canonical" href="https://danieltrandata.com/projects/ems-carbon-reporting.html" />
+
+  <!-- Favicons — 'D + data-bars' mark (F1). ?v=4 busts Hostinger CDN cache -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/portfolio.css?v=26" />
+
+  <!-- Structured data: helps Google understand who this is -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Tran",
+    "url": "https://danieltrandata.com",
+    "jobTitle": "Financial Analyst",
+    "description": "Finance-trained data engineer specialising in finance-grade data pipelines, automation and decision intelligence.",
+    "address": { "@type": "PostalAddress", "addressRegion": "South Australia", "addressCountry": "AU" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Torrens University Australia" },
+    "sameAs": [
+      "https://www.linkedin.com/in/nguyen-daniel-tran-accounting/",
+      "https://www.youtube.com/@DanielTranAustraliaSA"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran — home">
+        <span class="wordmark-icon" aria-hidden="true">
+          <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+        </span>
+        <span class="wordmark-text">
+          <span class="wordmark-name">DANIEL TRAN</span>
+          <span class="wordmark-sub">Financial Analyst</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#stack">Stack</a></li>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../index.html#ai">AI</a></li>
+          <li><a href="../index.html#credentials">Credentials</a></li>
+          <li><a href="../index.html#beyond">Beyond</a></li>
+          <li class="nav-cta-item"><a class="btn btn-yellow btn-sm" href="#contact">Get in touch</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top" tabindex="-1"></span>
+
+    <!-- ============================================================
+         EMS Carbon case study — structured as THREE STAGES
+         (Extract / Validate / Report), per
+         "EMS Carbon Case Study — Content v1" (vault, 02 Brand & Offer).
+
+         Why three, and why this shape: AroFlo's claim is "I can own a
+         whole platform alone" (five lifecycle stages). Gearbox's claim
+         is "I find out what is actually true before I build" (four,
+         investigation-led). This page's claim is narrower and more
+         architectural: one reusable extraction pattern, proven against
+         a messier second case, with a near-miss on silent data loss
+         caught by deliberate testing before it reached production.
+         Structure follows the story, not a template.
+
+         LAYERING RULE (reader is recruiter-first, technical-second):
+         every stage opens with one plain-English lead sentence a
+         non-technical reader can repeat to someone else.
+
+         Sanitised per Infrastructure & Config Reference §9 and the
+         content note's sanitisation record: no employer name/logo
+         (screenshots cropped below the report header band), no
+         employee names, no site names, no account/invoice numbers,
+         no dollar values.
+
+         Scope, deliberately: this page covers the Origin + Coregas PDF
+         pipelines only. The Gearbox-fed diesel/prestart thread has its
+         own page (different story — safety + Fuel Tax Credit). Fuel
+         cards (Shell/BP) are manual and not claimed here.
+         ============================================================ -->
+
+    <!-- ============ SUB-HERO ============ -->
+    <section class="subhero">
+      <div class="wrap">
+        <p class="kicker"><a class="subhero-back" href="../projects.html">&larr; Projects</a></p>
+        <h1>Emissions data an auditor can trace</h1>
+        <p class="subhero-lead">
+          Every emissions number here starts as a PDF from a supplier. I built one extraction pattern
+          that turns those invoices into figures traceable back to the document they came from &mdash;
+          electricity for Scope 2, industrial gas for Scope 1.
+        </p>
+        <p class="subhero-lead subhero-lead--tight">
+          It worked perfectly the first time I ran it. The second time, it would have deleted the three
+          years of invoices it had just saved &mdash; and reported success.
+        </p>
+      </div>
+    </section>
+
+    <section class="sec sec-tint">
+      <div class="wrap">
+        <div class="case">
+
+          <!-- meta strip: role / source / stack -->
+          <div class="case-meta">
+            <div>
+              <span class="case-meta-lab">My role</span>
+              <div class="cm-roles">
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="acc" d="M12 3 L20.5 8 L12 13 L3.5 8 Z"/><path d="M3.5 12 L12 17 L20.5 12"/><path d="M3.5 15.5 L12 20.5 L20.5 15.5"/></svg>
+                  <span>Builder</span>
+                </span>
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.5 L11 13.5 L15.5 8.5"/><circle class="acc" cx="12" cy="12" r="8.5"/></svg>
+                  <span>Tester</span>
+                </span>
+                <span class="cm-role">
+                  <svg class="cm-role-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 V4"/><path d="M4 20 H20"/><rect x="7.5" y="13" width="3" height="4.5"/><rect class="acc" x="12.5" y="9" width="3" height="8.5"/><rect x="17.5" y="6" width="3" height="11.5"/></svg>
+                  <span>Analyst</span>
+                </span>
+              </div>
+            </div>
+            <div>
+              <span class="case-meta-lab">Source systems</span>
+              <div class="cm-logos cm-logos--stack">
+                <span class="cm-more">Origin (electricity) &middot; Coregas (gas) &mdash; supplier PDF portals</span>
+              </div>
+            </div>
+            <div>
+              <span class="case-meta-lab">Built with</span>
+              <div class="cm-logos">
+                <img class="cm-logo" src="../assets/img/stack/n8n.svg" alt="n8n" height="20" loading="lazy" decoding="async" />
+                <img class="cm-logo" src="../assets/img/stack/sharepoint.svg" alt="SharePoint" height="24" loading="lazy" decoding="async" />
+                <img class="cm-logo" src="../assets/img/stack/power-bi.svg" alt="Power BI" height="24" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage rail -->
+          <nav class="rail" aria-label="On this page">
+            <span class="rail-lab">On this page</span>
+            <ol class="rail-list">
+              <li><a href="#extract"><span class="rail-num">01</span> Extract</a></li>
+              <li><a href="#validate"><span class="rail-num">02</span> Validate</a></li>
+              <li><a href="#report"><span class="rail-num">03</span> Report</a></li>
+            </ol>
+          </nav>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE THREE STAGES ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+
+        <!-- ---------- 01 EXTRACT ---------- -->
+        <article class="stage" id="extract">
+          <header class="stage-head">
+            <span class="stage-num">01</span>
+            <div>
+              <h2 class="stage-title">Extract</h2>
+              <p class="stage-lead">
+                I built it for the easy supplier first. The second one is where it had to earn its keep.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier one</span> Electricity &mdash; the template</h3>
+            <p>
+              One known invoice layout (two minor historical variants), one file per billing
+              period. A manifest tracks what has already been processed; every run downloads only
+              new or changed PDFs, extracts the billing text, pulls the fields, and appends fact
+              rows. Skip logic first, extraction second &mdash; so a rerun with nothing new touches
+              nothing.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier two</span> Gas &mdash; the real test</h3>
+            <p>
+              The second supplier's folder is not a folder of gas invoices. It is a folder of
+              <strong>everything the supplier has ever sent</strong>: sales invoices, monthly
+              rental invoices, credit adjustment notes, purchase orders, statements &mdash; four
+              different invoice layouts mixed in among them.
+            </p>
+            <blockquote class="pull">
+              A pipeline that assumes every PDF in the folder is an invoice breaks the first time
+              it hits a credit note. This one doesn't assume that.
+            </blockquote>
+            <p>
+              <strong>The design decision that mattered:</strong> classify by the document's actual
+              extracted text, never by filename. Filenames are inconsistent; text is not. Every
+              document is routed to one of three outcomes &mdash; parse as an invoice, skip as
+              non-target, or flag for review &mdash; and even the ones it skips are recorded in the
+              manifest, so a purchase order doesn't get re-read and re-rejected on every single run,
+              forever.
+            </p>
+            <p class="stage-punch">
+              One batch: 120 PDFs in, 112 real invoices correctly classified and parsed, 8 correctly
+              skipped, 0 needing manual review.
+            </p>
+            <blockquote class="pull pull--accent">
+              The second supplier is where a pattern proves itself. Anyone can build a script that
+              reads one layout. The question is what happens when the folder isn't clean.
+            </blockquote>
+          </div>
+        </article>
+
+        <!-- ---------- 02 VALIDATE ---------- -->
+        <article class="stage" id="validate">
+          <header class="stage-head">
+            <span class="stage-num">02</span>
+            <div>
+              <h2 class="stage-title">Validate</h2>
+              <p class="stage-lead">
+                My first version worked. That was the problem &mdash; the next run would have thrown away
+                everything the first one saved.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <p>
+              Each run's "new or changed files" filter is supposed to be narrow &mdash; that is the
+              entire point of incremental processing. The defect was in what happened next.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Finding one</span> The overwrite</h3>
+            <p>
+              The step that builds the master data file only ever saw the <strong>current run's</strong>
+              rows. Thirteen existing invoices on file, two new PDFs arrive, the filter correctly
+              narrows to those two &mdash; and the upload step took those two rows and used them as
+              the entire file. Not appended. <strong>Replaced.</strong> Thirteen invoices of history
+              gone, and the pipeline would have reported success, because from its own point of view
+              it had succeeded.
+            </p>
+
+            <h3 class="stage-sub"><span class="stage-sub-lab">Finding two</span> The disguise</h3>
+            <p>
+              A second, sharper fault made this worse before it made it visible. A metadata-restore
+              step was wired to the <em>pre-filter</em> file list instead of the
+              <em>post-filter</em> one, so the two new files briefly carried stale identifiers left
+              over from the full list. That made them look like <strong>updates to existing rows</strong>,
+              not new rows &mdash; a wrong number with no visible seam, exactly the kind of failure
+              that survives a casual glance.
+            </p>
+            <p>
+              <strong>The fix, in one sentence:</strong> never write only what the current run
+              produced &mdash; always load what already exists, merge, then write the full result.
+              Applied to both the master data file and its own processing manifest.
+            </p>
+
+            <!-- Navy panel: the defect is the climax of the page -->
+            <div class="catch">
+              <p class="catch-lead">
+                Not a lucky catch. I wrote the test to force this exact failure, because quietly losing
+                history is what incremental pipelines do.
+              </p>
+              <p>
+                Thirteen existing invoices on file. Two duplicated under new file identities, to
+                simulate two new PDFs arriving. Run the pipeline and check what survives:
+              </p>
+              <ul class="catch-list">
+                <li>Expected: 13 existing + 2 new = <strong>15 rows</strong>, 13 unique documents.</li>
+                <li>Before the fix: 13 existing + 2 new produced <strong>13 rows</strong> &mdash; the two new rows had overwritten everything.</li>
+                <li>After the fix: <strong>15 rows</strong>, correct.</li>
+              </ul>
+              <p>
+                A dashboard reading &ldquo;13 invoices&rdquo; after that first version would not
+                have looked broken. It would have looked like a report that simply started three years
+                later than it should have &mdash; and nothing about that number announces itself
+                as wrong.
+              </p>
+            </div>
+
+            <blockquote class="pull pull--accent">
+              A crash tells you something is wrong. A quietly overwritten history file does not
+              &mdash; it just answers the next question with less than it should know.
+            </blockquote>
+          </div>
+        </article>
+
+        <!-- ---------- 03 REPORT ---------- -->
+        <article class="stage" id="report">
+          <header class="stage-head">
+            <span class="stage-num">03</span>
+            <div>
+              <h2 class="stage-title">Report</h2>
+              <p class="stage-lead">
+                I don't publish a number more precisely than I know it. Some of these factors are still
+                provisional, and the model says which ones.
+              </p>
+            </div>
+          </header>
+          <div class="stage-body">
+            <p>
+              Once the extraction is trustworthy, the emissions calculation has its own honesty
+              requirement: <strong>not every line item in a gas invoice is a Scope 1 emission.</strong>
+            </p>
+            <p>
+              The gas supplier sells argon, oxygen and nitrogen alongside genuinely reactive gases.
+              Argon and nitrogen are inert; oxygen supports combustion but isn't itself the emission
+              source &mdash; all three are correctly zeroed. Acetylene and the mixed shielding-gas
+              products are the ones that count, calculated against a published methodology (energy
+              content combined with CO&#8322;, CH&#8324; and N&#8322;O factors).
+            </p>
+            <p>
+              <strong>Where the number isn't fully known yet, the pipeline says so instead of
+              guessing:</strong> the shielding-gas factor is explicitly tagged as a
+              <em>temporary proxy, pending supplier composition data</em> in the lookup table &mdash;
+              using the same interim methodology as acetylene, flagged as provisional until the
+              real figure is confirmed. It is not presented as more precise than it is.
+            </p>
+            <p>
+              <strong>Reconciliation, built in, not bolted on:</strong> the pipeline's line-item
+              detail and its invoice-level summary are checked against each other on every batch
+              &mdash; the same total, arrived at by two independently derived paths. On the batch
+              shown here, both agreed to two decimal places.
+            </p>
+            <p>
+              In production, the report reads two clean fact tables in Power BI &mdash; one per
+              supplier, joined to a shared date dimension &mdash; with no re-derivation of emissions
+              inside the report itself. If a factor is ever wrong, it gets fixed once, at the
+              source, not chased through a dozen measures.
+            </p>
+
+            <figure class="case-diagram stage-figure stage-figure--wide">
+              <img src="../assets/img/ems-scope1-dashboard.png"
+                   class="dia"
+                   alt="Power BI Scope 1 dashboard: total and average diesel litres and gas m3 converted to t-CO2-e, with monthly trend charts for diesel and gas consumption against emissions across a full financial year."
+                   width="1687" height="853" loading="lazy" decoding="async" />
+              <figcaption>
+                Scope 1 &mdash; consumption and t&#8209;CO&#8322;-e, side by side, month by month.
+                Every bar traces back to an invoice; every invoice traces back to a source PDF.
+              </figcaption>
+            </figure>
+
+            <figure class="case-diagram stage-figure stage-figure--wide">
+              <img src="../assets/img/ems-scope2-dashboard.png"
+                   class="dia"
+                   alt="Power BI Scope 2 dashboard: average, maximum and minimum daily electricity kWh converted to t-CO2-e, with a monthly trend chart of electricity consumption against emissions."
+                   width="1687" height="847" loading="lazy" decoding="async" />
+              <figcaption>
+                Scope 2 &mdash; electricity consumption against t&#8209;CO&#8322;-e, with the state
+                grid factor built into the calculation rather than assumed constant.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ IMPACT + CLOSE ============ -->
+    <section class="sec sec-tint">
+      <div class="wrap">
+        <div class="case">
+
+          <div class="pstat case-impact" aria-label="Impact">
+            <div class="wrap pstat-grid">
+              <div class="pstat-item">
+                <span class="pstat-num">120<span>&rarr;112</span></span>
+                <span class="pstat-lab">PDFs classified &mdash; only the real invoices parsed</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">4</span>
+                <span class="pstat-lab">invoice layouts handled inside one mixed folder</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">13<span>&rarr;2</span></span>
+                <span class="pstat-lab">rows the first version would have left standing</span>
+              </div>
+              <div class="pstat-item">
+                <span class="pstat-num">2</span>
+                <span class="pstat-lab">independent totals reconciled to the same figure</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-cols case-cols-2">
+            <article class="about-block">
+              <h3>What the design assumes</h3>
+              <ul class="doctrine">
+                <li>
+                  <strong>This covers electricity and gas only.</strong> Fleet fuel is a separate,
+                  currently manual thread &mdash; a colleague extracts it from a supplier web
+                  portal, because no API access exists yet. Not claimed here.
+                </li>
+                <li>
+                  <strong>The gas emissions factor for shielding-gas products is a temporary
+                  proxy</strong>, not a confirmed figure. It is labelled as such in the data model,
+                  not silently treated as final.
+                </li>
+                <li>
+                  <strong>Deletion isn't detected.</strong> If a source PDF is removed from
+                  SharePoint, the pipeline doesn't know to remove its row. Same limitation on both
+                  suppliers; cleanup today is a full rebuild, not an automatic reconciliation.
+                </li>
+                <li>
+                  <strong>The classification rules are layout-specific.</strong> A supplier
+                  changing its invoice template needs the parser updated &mdash; the pipeline flags
+                  this itself, rather than silently mis-parsing, by routing anything it doesn't
+                  recognise to manual review instead of guessing.
+                </li>
+              </ul>
+            </article>
+            <article class="about-block">
+              <h3>What I'd do differently</h3>
+              <ul class="doctrine">
+                <li>
+                  Write the <strong>incremental test before the incremental feature</strong>, not
+                  after. The overwrite defect existed because nothing forced a second run to happen
+                  before the pipeline went live. It should have been the first test written, not a
+                  later one.
+                </li>
+                <li>
+                  Build the <strong>same classify-by-text</strong> approach into the first supplier
+                  too, even though it didn't need it yet. The second supplier needed it on day one
+                  of that build &mdash; better to have the safety net a batch early than a batch
+                  late.
+                </li>
+                <li>
+                  Treat a <strong>provisional emissions factor as a tracked task</strong>, not a
+                  comment in a lookup table. It is correct today because it is labelled; it stays
+                  correct only if someone is accountable for closing it out.
+                </li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="own">
+            <p class="own-lead">
+              I built one pattern and proved it twice. The second supplier's files were never going to
+              cooperate, and the test I wrote to break my own work found a defect that would have quietly
+              erased three years of invoice history. It runs on a schedule now, checks its totals two independent
+              ways, and says so when a number isn't fully known.
+            </p>
+            <p>
+              The work I want is exactly this: the part where a number has to survive being asked
+              &ldquo;how do you know?&rdquo; a second time.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <!-- Rendered on EVERY page from this one partial (build.py inserts it before
+         main-close). The lead sentence is per-page via I can walk through the classification logic, the incremental-processing defect, or the reasoning behind any decision above. so a case
+         page can name its own detail without the section design ever drifting. -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-inner">
+
+          <div class="contact-intro">
+            <h2 class="contact-title">Get in touch</h2>
+            <p class="contact-lead">I can walk through the classification logic, the incremental-processing defect, or the reasoning behind any decision above.</p>
+            <p class="contact-place">
+              <svg class="contact-place-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="2.4" />
+              </svg>
+              <span>Adelaide, South Australia &middot; ACST (UTC+9:30)</span>
+            </p>
+          </div>
+
+          <div class="contact-methods">
+            <a class="contact-card" href="mailto:nguyencongkhoitran@gmail.com">
+              <svg class="contact-card-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="#2c5185" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+              </svg>
+              <span class="contact-card-val">nguyencongkhoitran@gmail.com</span>
+              <svg class="contact-card-go" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h13M12 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            <a class="contact-card" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+              <svg class="contact-card-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="#2c5185" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/>
+              </svg>
+              <span class="contact-card-val">Connect or message me</span>
+              <svg class="contact-card-go" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h13M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="wordmark wordmark-light" href="../index.html#top">
+            <span class="wordmark-icon" aria-hidden="true">
+              <svg viewBox="0 0 512 512"><defs><linearGradient id="wmF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmF)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+            </span>
+            <span class="wordmark-text">
+              <span class="wordmark-name">DANIEL TRAN</span>
+              <span class="wordmark-sub">Financial Analyst</span>
+            </span>
+          </a>
+          <p class="footer-desc">
+            Finance-trained data engineer in Adelaide, South Australia. I build governed,
+            audit-ready financial data systems that leadership makes decisions on.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Site">
+          <h3>Site</h3>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#work">Work</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../index.html#credentials">Credentials</a>
+          <!-- CV link hidden for now (kept, not deleted):
+          <a href="../assets/docs/daniel-tran-cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+          -->
+        </nav>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <a class="footer-contact-link footer-email" href="mailto:nguyencongkhoitran@gmail.com">
+            <img class="footer-contact-icon footer-icon-gmail" src="../assets/img/gmail-logo-white-gradient.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>nguyencongkhoitran@gmail.com</span>
+          </a>
+          <a class="footer-contact-link footer-linkedin" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon" src="../assets/img/linkedin-white.png" alt="" width="18" height="18" decoding="async" />
+            <span>LinkedIn</span>
+          </a>
+          <a class="footer-contact-link footer-youtube" href="https://www.youtube.com/@DanielTranAustraliaSA" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon footer-icon-youtube" src="../assets/img/youtube-logo-white.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>Daniel Tran</span>
+          </a>
+          <p class="footer-location">
+            <svg class="footer-contact-icon footer-icon-location" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="2.4" />
+            </svg>
+            <span>Adelaide, South Australia</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p class="disclaimer">
+          Nothing on this website is financial, tax or legal advice.
+        </p>
+        <p class="copyright">&copy; <span id="year">2026</span> Daniel Tran. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top. Plain anchor: works without JS; JS only handles show/hide. -->
+  <a class="to-top" id="toTop" href="#top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </a>
+
+  <script src="../assets/js/portfolio.js?v=3"></script>
+</body>
+</html>
