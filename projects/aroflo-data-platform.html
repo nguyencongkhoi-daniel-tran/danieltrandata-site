@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AroFlo data platform — Daniel Tran</title>
-  <meta name="description" content="Case study: a governed finance data warehouse built from five disconnected systems — designed, built, operated, audited and recovered by one person. Two independent pipelines cross-check each other, and this is the silent failure that only that design could catch." />
+  <title>AroFlo data platform · Daniel Tran</title>
+  <meta name="description" content="Case study: a governed finance data warehouse built from five disconnected systems, designed, built, operated, audited and recovered by one person. Two independent pipelines cross-check each other, and this is the silent failure that only that design could catch." />
   <meta name="author" content="Daniel Tran" />
 
   <!-- ============================================================
@@ -15,18 +15,18 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="A solo-built finance data platform" />
-  <meta property="og:description" content="I designed it, I built both pipelines, I run it, and I repair it when it breaks. Why I kept the pipeline I replaced — and what it caught that nine health checks missed." />
+  <meta property="og:description" content="I designed it, I built both pipelines, I run it, and I repair it when it breaks. Why I kept the pipeline I replaced, and what it caught that nine health checks missed." />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://danieltrandata.com/projects/aroflo-data-platform.html" />
   <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+  <meta property="og:image:alt" content="Daniel Tran, Financial Analyst · danieltrandata.com" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="A solo-built finance data platform" />
-  <meta name="twitter:description" content="I designed it, I built both pipelines, I run it, and I repair it when it breaks. Why I kept the pipeline I replaced — and what it caught that nine health checks missed." />
+  <meta name="twitter:description" content="I designed it, I built both pipelines, I run it, and I repair it when it breaks. Why I kept the pipeline I replaced, and what it caught that nine health checks missed." />
   <meta name="twitter:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
 
   <link rel="canonical" href="https://danieltrandata.com/projects/aroflo-data-platform.html" />
@@ -65,7 +65,7 @@
   <!-- ============ HEADER ============ -->
   <header class="header" id="header">
     <div class="wrap header-inner">
-      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran — home">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran, home">
         <span class="wordmark-icon" aria-hidden="true">
           <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
         </span>
@@ -125,7 +125,7 @@
         <p class="subhero-lead">
           Five business systems that don't talk to each other. One warehouse that leadership's
           reporting runs on. I designed the architecture, built both pipelines, put it into
-          production, wrote the monitoring — and I am the person who fixes it when it breaks at
+          production, wrote the monitoring, and I am the person who fixes it when it breaks at
           8am on a Friday.
         </p>
         <p class="subhero-lead subhero-lead--tight">
@@ -213,7 +213,7 @@
           </header>
           <div class="stage-body">
             <p>
-              The business runs on separate systems — job management, accounting, HR,
+              The business runs on separate systems: job management, accounting, HR,
               time-tracking. None of them talk to each other. Before this existed, one number
               depended on a person doing manual, repetitive work in the middle: every cycle,
               someone on the finance team copied timesheet entries out of Clockify and re-entered
@@ -240,7 +240,7 @@
             <p>So the requirement I designed to was not "get the data across". It was:</p>
             <blockquote class="pull">
               Every number in the warehouse must be traceable to a source record, reproducible on
-              demand, and provably complete — or the system must refuse to serve it.
+              demand, and provably complete, or the system must refuse to serve it.
             </blockquote>
             <p>
               Everything downstream follows from that sentence. This is the part that is normally
@@ -268,13 +268,13 @@
               The first version was Python, started mid-2025. Every request signed with an
               HMAC-SHA512 signature built from the method, timestamp and query string. A
               pagination engine that keeps asking for the next page until the source says there
-              isn't one — the API caps at 500 records per page, and no endpoint is small enough to
+              isn't one: the API caps at 500 records per page, and no endpoint is small enough to
               trust unpaginated. A flattener turning deeply nested JSON into something tabular.
               Credentials in environment variables, never in source.
             </p>
             <p>
               It pulled everything, every run. It was slower than what replaced it, and that was
-              the correct trade at the time — because writing it is how I learned the source
+              the correct trade at the time, because writing it is how I learned the source
               system's real behaviour:
             </p>
             <ul class="doctrine">
@@ -302,7 +302,7 @@
             <ul class="doctrine">
               <li>
                 A <strong>watermark</strong> records the last successful run. A typical run now
-                touches a few hundred changed records instead of tens of thousands —
+                touches a few hundred changed records instead of tens of thousands,
                 <strong>~99% fewer records processed per run</strong>.
               </li>
               <li>
@@ -316,7 +316,7 @@
                 what arrived.
               </li>
               <li>
-                Loads are <strong>idempotent</strong> — each record is deleted then re-inserted by
+                Loads are <strong>idempotent</strong>: each record is deleted then re-inserted by
                 key, so running the same batch once or ten times produces the same result.
               </li>
               <li>
@@ -328,7 +328,7 @@
             <figure class="case-diagram stage-figure">
               <img src="../assets/img/architecture-incremental.svg"
                    class="dia dia--portrait"
-                   alt="Diagram: source systems feed an hourly incremental pipeline — change detector, raw capture, validator, idempotent loader — which writes to a governed SQL warehouse read by Power BI, and separately decides whether to advance or hold the watermark depending on whether the whole run succeeded."
+                   alt="Diagram: source systems feed an hourly incremental pipeline (change detector, raw capture, validator, idempotent loader) which writes to a governed SQL warehouse read by Power BI, and separately decides whether to advance or hold the watermark depending on whether the whole run succeeded."
                    width="793" height="1131" loading="lazy" decoding="async" />
               <figcaption>
                 The hourly pipeline. Raw data is saved before it is processed, counts are
@@ -342,7 +342,7 @@
               people skip: if a re-run doubles a labour line, a job's cost is silently overstated.
               Nobody gets an error. The report renders. Someone quotes the wrong margin to a
               client, and it surfaces weeks later as an invoice dispute. Making every load safe to
-              re-run is not engineering elegance — it is the thing standing between a retry and a
+              re-run is not engineering elegance: it is the thing standing between a retry and a
               wrong number in front of a client.
             </p>
 
@@ -356,7 +356,7 @@
             <div>
               <h2 class="stage-title">Operate</h2>
               <p class="stage-lead">
-                A platform you have to watch isn't a platform — it's a job. This one runs whether
+                A platform you have to watch isn't a platform: it's a job. This one runs whether
                 or not I'm looking at it.
               </p>
             </div>
@@ -377,7 +377,7 @@
               </li>
               <li>
                 <strong>Nine automated health checks</strong> run every morning and email me on
-                failure — not a dashboard I have to remember to open. Failure has to come and find
+                failure, not a dashboard I have to remember to open. Failure has to come and find
                 me.
               </li>
               <li>
@@ -419,17 +419,17 @@
               It now runs hourly, takes a complete snapshot of the source, and rebuilds a
               <strong>second, independent database</strong> from scratch. So the same source is
               loaded two different ways, by two pipelines built on two different technologies,
-              into two databases — and those two get compared.
+              into two databases, and those two get compared.
             </p>
             <blockquote class="pull pull--accent">
               A pipeline that checks itself against a copy of itself is not checking anything. The
-              old build is not legacy I failed to retire — it is the control group.
+              old build is not legacy I failed to retire: it is the control group.
             </blockquote>
 
             <figure class="case-diagram stage-figure">
               <img src="../assets/img/cross-check.svg"
                    class="dia dia--portrait"
-                   alt="Diagram: one source system feeds two independent pipelines — an hourly incremental pipeline into the governed warehouse, and a full-extract pipeline that rebuilds a validation mirror from scratch. Both databases feed one comparison of existence, state and value; agreement means the number is trustworthy, disagreement raises an alert."
+                   alt="Diagram: one source system feeds two independent pipelines: an hourly incremental pipeline into the governed warehouse, and a full-extract pipeline that rebuilds a validation mirror from scratch. Both databases feed one comparison of existence, state and value; agreement means the number is trustworthy, disagreement raises an alert."
                    width="620" height="853" loading="lazy" decoding="async" />
               <figcaption>
                 One source, two independent routes, two databases, one comparison. Nothing is
@@ -440,12 +440,12 @@
             <p>On top of that:</p>
             <ul class="doctrine">
               <li>
-                Record counts are reconciled at <strong>every stage</strong> — raw equals routed
+                Record counts are reconciled at <strong>every stage</strong>: raw equals routed
                 equals loaded. A mismatch is a hard failure, not a warning.
               </li>
               <li>
                 The new warehouse was reconciled against the existing production report and
-                matched <strong>to the dollar</strong> — two independently built pipelines
+                matched <strong>to the dollar</strong>: two independently built pipelines
                 arriving at the same total is the strongest evidence available that both are
                 right.
               </li>
@@ -456,7 +456,7 @@
             </ul>
             <p>
               <strong>Why a finance person insists on this and an engineer might not:</strong> in
-              accounting you never trust a single source for a material number — you reconcile it
+              accounting you never trust a single source for a material number: you reconcile it
               against an independent one. Bank to ledger. Ledger to statement. I built the same
               habit into the platform, because a data pipeline that cannot be reconciled is just a
               confident opinion.
@@ -486,14 +486,14 @@
                 status was stale in one of them. Everything said the system was healthy.
               </p>
               <ul class="catch-list">
-                <li>Row counts matched — a wrong record is still a record.</li>
-                <li>Key comparisons matched — a status change doesn't move an identifier.</li>
+                <li>Row counts matched: a wrong record is still a record.</li>
+                <li>Key comparisons matched: a status change doesn't move an identifier.</li>
                 <li>All nine health checks passed.</li>
               </ul>
               <p>
                 <strong>The cause.</strong> After a multi-day outage, the backlog of pending
                 changes was replayed <strong>newest-first</strong>. Because each load deletes a
-                record before re-inserting it, replaying out of order wrote history backwards —
+                record before re-inserting it, replaying out of order wrote history backwards:
                 the oldest version of each document landed last and won. Documents that had
                 reached a final state never change again, so unlike everything else, they could
                 never correct themselves. They just sat there, plausible and stale.
@@ -507,7 +507,7 @@
                    width="1046" height="356" loading="lazy" decoding="async" />
               <figcaption>
                 Same three updates, two orders, opposite outcomes. Applied newest-first, the
-                oldest version is the one left standing — and every version along the way is a
+                oldest version is the one left standing, and every version along the way is a
                 perfectly valid record, which is why nothing could detect it.
               </figcaption>
             </figure>
@@ -515,13 +515,13 @@
             <p>
               <strong>My first diagnosis was wrong.</strong> I initially concluded the source
               system wasn't reporting status-only changes. It was. The audit trail I'd built in
-              stage two held the correct data all along — the loss was mine, not the vendor's. I
+              stage two held the correct data all along: the loss was mine, not the vendor's. I
               record that because it is the actual lesson: I had evidence on disk that settled it
               in minutes, and I nearly blamed an external system instead of reading it.
             </p>
             <p>
               <strong>The repair.</strong> Replayed in strict date order, then re-applied every
-              later batch — a partial replay is worse than none, which I found out by doing it and
+              later batch. A partial replay is worse than none, which I found out by doing it and
               watching a second set of records regress. Verified back to zero drift the same
               morning.
             </p>
@@ -535,7 +535,7 @@
               what a record <strong>says</strong>, not merely that it exists.
             </blockquote>
             <p class="stage-punch">
-              And the harder one — the check you never see fail is the one to distrust first. Mine
+              And the harder one: the check you never see fail is the one to distrust first. Mine
               had been passing for months because it wasn't looking at the right thing.
             </p>
 
@@ -575,9 +575,9 @@
             <article class="about-block">
               <h3>The engineering doctrine</h3>
               <ul class="doctrine">
-                <li>Save the raw data first — always keep an audit trail.</li>
+                <li>Save the raw data first: always keep an audit trail.</li>
                 <li>Paginate everything; never assume one page is the whole answer.</li>
-                <li>Validate counts and fail loud — a wrong number is more dangerous than a crash.</li>
+                <li>Validate counts and fail loud: a wrong number is more dangerous than a crash.</li>
                 <li>Design every step to be safely re-run.</li>
                 <li>Never trust an API to be complete or consistent.</li>
               </ul>
@@ -587,7 +587,7 @@
               <ul class="doctrine">
                 <li>
                   Build the state comparison <strong>before</strong> I need it. I had
-                  reconciliation from day one, but it only ever asked "is this record present?" —
+                  reconciliation from day one, but it only ever asked "is this record present?",
                   and for months that felt like enough, because it kept passing.
                 </li>
                 <li>
@@ -596,8 +596,8 @@
                   wrong order, and every guard I had was blind to that.
                 </li>
                 <li>
-                  Write the runbook earlier. I can recover this system quickly because I built it
-                  — that is not the same as it being recoverable, and those need to be the same
+                  Write the runbook earlier. I can recover this system quickly because I built it:
+                  that is not the same as it being recoverable, and those need to be the same
                   thing.
                 </li>
               </ul>
@@ -613,7 +613,7 @@
               corrected myself, fixed the data and then removed the cause.
             </p>
             <p>
-              That is the job I want — owning a platform end to end, where the numbers matter and
+              That is the job I want: owning a platform end to end, where the numbers matter and
               someone has to be accountable for them.
             </p>
           </div>

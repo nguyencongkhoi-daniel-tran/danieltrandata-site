@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gearbox vehicles, plant & equipment report — Daniel Tran</title>
+  <title>Gearbox vehicles, plant & equipment report · Daniel Tran</title>
   <meta name="description" content="Case study: a fleet, plant and equipment register built from two sources - a paginated API and a web report export - because the pre-start readings are write-only. Feeds pre-start compliance and Fuel Tax Credit substantiation." />
   <meta name="author" content="Daniel Tran" />
 
@@ -21,7 +21,7 @@
   <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+  <meta property="og:image:alt" content="Daniel Tran, Financial Analyst · danieltrandata.com" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -65,7 +65,7 @@
   <!-- ============ HEADER ============ -->
   <header class="header" id="header">
     <div class="wrap header-inner">
-      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran — home">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran, home">
         <span class="wordmark-icon" aria-hidden="true">
           <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
         </span>
@@ -132,7 +132,7 @@
         </p>
         <p class="subhero-lead subhero-lead--tight">
           Before I built anything, I found out that the existing extract had been reading one page
-          of nine — and that the data everyone assumed came from the API could not come from the
+          of nine, and that the data everyone assumed came from the API could not come from the
           API at all.
         </p>
       </div>
@@ -206,7 +206,7 @@
               <h2 class="stage-title">Investigate</h2>
               <p class="stage-lead">
                 The first thing I did was not write code. It was to find out whether the numbers
-                already in use were true — and they weren't.
+                already in use were true, and they weren't.
               </p>
             </div>
           </header>
@@ -230,7 +230,7 @@
             </p>
             <p>Measured against the fault-reports endpoint:</p>
             <blockquote class="pull">
-              801 records across nine pages. A page-one-only read sees 100 of them —
+              801 records across nine pages. A page-one-only read sees 100 of them:
               <strong>12.5%</strong>.
             </blockquote>
             <p class="stage-punch">
@@ -240,15 +240,15 @@
 
             <h3 class="stage-sub"><span class="stage-sub-lab">Finding two</span> The key data cannot come from the API</h3>
             <p>
-              The pre-start records — the safety checks, with the odometer and hour readings inside
-              them — are <strong>write-only</strong>. You can push a pre-start into the system;
+              The pre-start records (the safety checks, with the odometer and hour readings inside
+              them) are <strong>write-only</strong>. You can push a pre-start into the system;
               there is no endpoint that returns one. I verified this across the entire vendor
               documentation repository, then proved it against production: <code>GET</code> on that
               endpoint returns <strong>404</strong>.
             </p>
             <p>
-              That matters more than it sounds. It means the obvious architecture — one API, one
-              pipeline, one table — was never available. Any register combining asset details with
+              That matters more than it sounds. It means the obvious architecture (one API, one
+              pipeline, one table) was never available. Any register combining asset details with
               pre-start readings has to join <strong>two sources of different kinds</strong>: an
               API, and a spreadsheet export from the vendor's web reporting.
             </p>
@@ -267,7 +267,7 @@
             <div>
               <h2 class="stage-title">Design</h2>
               <p class="stage-lead">
-                Two sources that don't know about each other have to produce one row per asset — and
+                Two sources that don't know about each other have to produce one row per asset, and
                 that row has to be the latest truth, not just a truth.
               </p>
             </div>
@@ -276,12 +276,12 @@
             <p>The design that survived the investigation:</p>
             <ul class="doctrine">
               <li>
-                <strong>The asset register</strong> comes from the API — every vehicle, plant item
+                <strong>The asset register</strong> comes from the API: every vehicle, plant item
                 and piece of equipment, with its make, model, type, group and service status.
               </li>
               <li>
                 <strong>The pre-start readings</strong> come from the vendor's own web report,
-                which <strong>I export by hand</strong> — there is no endpoint to automate against,
+                which <strong>I export by hand</strong>. There is no endpoint to automate against,
                 so there is nothing for a scheduler to call. One row per pre-start <em>event</em>,
                 so a single asset has many rows.
               </li>
@@ -295,12 +295,12 @@
             </p>
             <p>
               The pre-start export is a <strong>transaction register</strong>: hundreds of rows,
-              many per asset, going back months. What the report needs is one row per asset — its
+              many per asset, going back months. What the report needs is one row per asset: its
               most recent completed check. That reduction is a business rule, and getting it wrong
               does not produce an error. It produces a plausible old number.
             </p>
             <ul class="doctrine">
-              <li>Keep only <strong>completed</strong> checks — an abandoned check evidences nothing.</li>
+              <li>Keep only <strong>completed</strong> checks: an abandoned check evidences nothing.</li>
               <li>Within each asset, sort by <strong>date descending</strong>, then by
                   <strong>pre-start number descending</strong>.</li>
               <li>Take the first row.</li>
@@ -323,7 +323,7 @@
               <h2 class="stage-title">Build</h2>
               <p class="stage-lead">
                 Everything the API can deliver refreshes itself every morning and checks its own
-                arithmetic. One step stays manual — that is the vendor's constraint, not a shortcut.
+                arithmetic. One step stays manual: that is the vendor's constraint, not a shortcut.
               </p>
             </div>
           </header>
@@ -335,7 +335,7 @@
             <ul class="doctrine">
               <li>
                 walks <strong>every</strong> page by following the <code>Link</code> header until
-                the header is absent — the fix for the original defect;
+                the header is absent, the fix for the original defect;
               </li>
               <li>
                 asserts that the number of records collected <strong>equals the total the server
@@ -349,7 +349,7 @@
               </li>
               <li>
                 respects a rate limit of <strong>20 requests per 15 seconds</strong> by running at
-                18 — a documented architectural constraint, not something to discover in production;
+                18, a documented architectural constraint, not something to discover in production;
               </li>
               <li>
                 <strong>emails on failure</strong>, with the error handler tested rather than
@@ -359,7 +359,7 @@
             <p>
               <strong>The transformation.</strong> The register is built in Power Query: the asset
               dimension from the raw JSON, the latest-check snapshot from the export, then a left
-              join on fleet number so <strong>every asset appears exactly once — including the ones
+              join on fleet number so <strong>every asset appears exactly once, including the ones
               that have never been checked</strong>, which are precisely the ones a compliance
               question is about.
             </p>
@@ -376,11 +376,11 @@
                 asset:
               </p>
               <ul class="catch-list">
-                <li>Date chosen: July 2025 — when the correct row was August 2026.</li>
-                <li>Hours reported: 16,682 — when the true reading was 17,404.</li>
+                <li>Date chosen: July 2025, when the correct row was August 2026.</li>
+                <li>Hours reported: 16,682, when the true reading was 17,404.</li>
               </ul>
               <p>
-                <strong>Thirteen months stale, and 722 operating hours understated — on a row that
+                <strong>Thirteen months stale, and 722 operating hours understated, on a row that
                 looked completely normal.</strong> No error, no null, no blank cell. Just an old
                 number sitting where a current one belonged.
               </p>
@@ -388,7 +388,7 @@
 
             <p>
               The fix is to <strong>sort inside each group</strong> rather than trusting an earlier
-              sort to survive it — a one-line change in shape, and the difference between a register
+              sort to survive it, a one-line change in shape, and the difference between a register
               you can hand to finance and one you cannot.
             </p>
             <blockquote class="pull pull--accent">
@@ -405,7 +405,7 @@
             <div>
               <h2 class="stage-title">Deliver</h2>
               <p class="stage-lead">
-                The register answers a safety question and a tax question from the same row — and it
+                The register answers a safety question and a tax question from the same row, and it
                 exposed a third problem nobody had gone looking for.
               </p>
             </div>
@@ -416,7 +416,7 @@
             <p>
               One row per asset showing when it was last checked, by whom, and whether it has been
               checked at all. That turns "are the crews doing their checks?" from an impression into
-              a list — including which sites are consistent, and which assets have gone untouched.
+              a list, including which sites are consistent, and which assets have gone untouched.
             </p>
 
             <h3 class="stage-sub"><span class="stage-sub-lab">Use two</span> Fuel Tax Credit substantiation</h3>
@@ -438,15 +438,15 @@
             <ul class="doctrine">
               <li>
                 <strong>The same physical asset entered twice</strong> under two different fleet
-                numbers — in one case proven by an engine number appearing <em>inside</em> the other
+                numbers, in one case proven by an engine number appearing <em>inside</em> the other
                 record's serial number. Any count of "how many of these do we own" was wrong.
               </li>
               <li>
-                <strong>Two active records sharing one registration</strong> — so registration was
+                <strong>Two active records sharing one registration</strong>, so registration was
                 not the unique key it appeared to be.
               </li>
               <li>
-                <strong>Build dates stored as free text</strong> — five different formats plus
+                <strong>Build dates stored as free text</strong>: five different formats plus
                 blanks in a single pull. Cannot be cast to a date without a parser and a fallback.
               </li>
               <li>
@@ -459,7 +459,7 @@
               </li>
             </ul>
             <p class="stage-punch">
-              None of these are extraction bugs — the extract is faithfully reporting what the
+              None of these are extraction bugs: the extract is faithfully reporting what the
               system holds. They are ownership problems that were invisible until something looked
               at every asset at once. Surfacing them is part of the value, not a side effect.
             </p>
@@ -501,7 +501,7 @@
               <ul class="doctrine">
                 <li>
                   <strong>The pre-start export is manual, and cannot be otherwise.</strong> Those
-                  records are write-only — you can push a pre-start in, there is no endpoint to
+                  records are write-only: you can push a pre-start in, there is no endpoint to
                   read one back. I confirmed that across the endpoint documentation, the readme
                   index and the vendor's own Postman collection, then against production. Until
                   the vendor exposes a read endpoint, no amount of scheduling removes that step,
@@ -514,17 +514,17 @@
                 </li>
                 <li>
                   The register is <strong>eight records from a silent failure</strong> on any tool
-                  still reading page one only — 92 assets fit inside one 100-record page today. The
+                  still reading page one only: 92 assets fit inside one 100-record page today. The
                   failure is pending, not hypothetical, which is the whole argument for fixing
                   pagination before it bites.
                 </li>
                 <li>
                   <strong>Four endpoints return 403</strong>, including the one carrying
-                  purchase-order costs — the most finance-relevant data in the system. That is
+                  purchase-order costs, the most finance-relevant data in the system. That is
                   module licensing, not a code problem, and no amount of engineering fixes it.
                 </li>
                 <li>
-                  Site and operator allocation <strong>cannot be sourced from this API</strong> —
+                  Site and operator allocation <strong>cannot be sourced from this API</strong>:
                   the fields exist and are empty on every record. The register reports what it can
                   evidence and stays silent on what it cannot.
                 </li>
@@ -536,7 +536,7 @@
                 <li>
                   Test the grouping rule against a <strong>known answer</strong> from the first
                   version, not the third. I found the stale-row defect by checking one asset against
-                  its real latest reading — that check should have existed before the rule did.
+                  its real latest reading: that check should have existed before the rule did.
                 </li>
                 <li>
                   Ask <strong>what the number will be used for</strong> earlier. Once I knew

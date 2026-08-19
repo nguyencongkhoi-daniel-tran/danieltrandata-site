@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scope 1 & 2 emissions reporting — Daniel Tran</title>
+  <title>Scope 1 & 2 emissions reporting · Daniel Tran</title>
   <meta name="description" content="Case study: two n8n pipelines that turn supplier PDF invoices into structured emissions data for Power BI. One template, proven against a mixed-format second supplier, plus an incremental-processing defect caught before it reached production." />
   <meta name="author" content="Daniel Tran" />
 
@@ -21,7 +21,7 @@
   <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Daniel Tran — Financial Analyst · danieltrandata.com" />
+  <meta property="og:image:alt" content="Daniel Tran, Financial Analyst · danieltrandata.com" />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -65,7 +65,7 @@
   <!-- ============ HEADER ============ -->
   <header class="header" id="header">
     <div class="wrap header-inner">
-      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran — home">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran, home">
         <span class="wordmark-icon" aria-hidden="true">
           <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
         </span>
@@ -134,12 +134,12 @@
         <h1>Emissions data an auditor can trace</h1>
         <p class="subhero-lead">
           Every emissions number here starts as a PDF from a supplier. I built one extraction pattern
-          that turns those invoices into figures traceable back to the document they came from &mdash;
+          that turns those invoices into figures traceable back to the document they came from:
           electricity for Scope 2, industrial gas for Scope 1.
         </p>
         <p class="subhero-lead subhero-lead--tight">
           It worked perfectly the first time I ran it. The second time, it would have deleted the three
-          years of invoices it had just saved &mdash; and reported success.
+          years of invoices it had just saved, and reported success.
         </p>
       </div>
     </section>
@@ -213,20 +213,20 @@
             </div>
           </header>
           <div class="stage-body">
-            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier one</span> Electricity &mdash; the template</h3>
+            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier one</span> Electricity: the template</h3>
             <p>
               One known invoice layout (two minor historical variants), one file per billing
               period. A manifest tracks what has already been processed; every run downloads only
               new or changed PDFs, extracts the billing text, pulls the fields, and appends fact
-              rows. Skip logic first, extraction second &mdash; so a rerun with nothing new touches
+              rows. Skip logic first, extraction second, so a rerun with nothing new touches
               nothing.
             </p>
 
-            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier two</span> Gas &mdash; the real test</h3>
+            <h3 class="stage-sub"><span class="stage-sub-lab">Supplier two</span> Gas: the real test</h3>
             <p>
               The second supplier's folder is not a folder of gas invoices. It is a folder of
               <strong>everything the supplier has ever sent</strong>: sales invoices, monthly
-              rental invoices, credit adjustment notes, purchase orders, statements &mdash; four
+              rental invoices, credit adjustment notes, purchase orders, statements. Four
               different invoice layouts mixed in among them.
             </p>
             <blockquote class="pull">
@@ -236,8 +236,8 @@
             <p>
               <strong>The design decision that mattered:</strong> classify by the document's actual
               extracted text, never by filename. Filenames are inconsistent; text is not. Every
-              document is routed to one of three outcomes &mdash; parse as an invoice, skip as
-              non-target, or flag for review &mdash; and even the ones it skips are recorded in the
+              document is routed to one of three outcomes: parse as an invoice, skip as
+              non-target, or flag for review, and even the ones it skips are recorded in the
               manifest, so a purchase order doesn't get re-read and re-rejected on every single run,
               forever.
             </p>
@@ -259,14 +259,14 @@
             <div>
               <h2 class="stage-title">Validate</h2>
               <p class="stage-lead">
-                My first version worked. That was the problem &mdash; the next run would have thrown away
+                My first version worked. That was the problem: the next run would have thrown away
                 everything the first one saved.
               </p>
             </div>
           </header>
           <div class="stage-body">
             <p>
-              Each run's "new or changed files" filter is supposed to be narrow &mdash; that is the
+              Each run's "new or changed files" filter is supposed to be narrow: that is the
               entire point of incremental processing. The defect was in what happened next.
             </p>
 
@@ -274,7 +274,7 @@
             <p>
               The step that builds the master data file only ever saw the <strong>current run's</strong>
               rows. Thirteen existing invoices on file, two new PDFs arrive, the filter correctly
-              narrows to those two &mdash; and the upload step took those two rows and used them as
+              narrows to those two, and the upload step took those two rows and used them as
               the entire file. Not appended. <strong>Replaced.</strong> Thirteen invoices of history
               gone, and the pipeline would have reported success, because from its own point of view
               it had succeeded.
@@ -286,12 +286,12 @@
               step was wired to the <em>pre-filter</em> file list instead of the
               <em>post-filter</em> one, so the two new files briefly carried stale identifiers left
               over from the full list. That made them look like <strong>updates to existing rows</strong>,
-              not new rows &mdash; a wrong number with no visible seam, exactly the kind of failure
+              not new rows: a wrong number with no visible seam, exactly the kind of failure
               that survives a casual glance.
             </p>
             <p>
               <strong>The fix, in one sentence:</strong> never write only what the current run
-              produced &mdash; always load what already exists, merge, then write the full result.
+              produced; always load what already exists, merge, then write the full result.
               Applied to both the master data file and its own processing manifest.
             </p>
 
@@ -307,20 +307,20 @@
               </p>
               <ul class="catch-list">
                 <li>Expected: 13 existing + 2 new = <strong>15 rows</strong>, 13 unique documents.</li>
-                <li>Before the fix: 13 existing + 2 new produced <strong>13 rows</strong> &mdash; the two new rows had overwritten everything.</li>
+                <li>Before the fix: 13 existing + 2 new produced <strong>13 rows</strong>: the two new rows had overwritten everything.</li>
                 <li>After the fix: <strong>15 rows</strong>, correct.</li>
               </ul>
               <p>
                 A dashboard reading &ldquo;13 invoices&rdquo; after that first version would not
                 have looked broken. It would have looked like a report that simply started three years
-                later than it should have &mdash; and nothing about that number announces itself
+                later than it should have, and nothing about that number announces itself
                 as wrong.
               </p>
             </div>
 
             <blockquote class="pull pull--accent">
-              A crash tells you something is wrong. A quietly overwritten history file does not
-              &mdash; it just answers the next question with less than it should know.
+              A crash tells you something is wrong. A quietly overwritten history file does not.
+              It just answers the next question with less than it should know.
             </blockquote>
           </div>
         </article>
@@ -345,26 +345,26 @@
             <p>
               The gas supplier sells argon, oxygen and nitrogen alongside genuinely reactive gases.
               Argon and nitrogen are inert; oxygen supports combustion but isn't itself the emission
-              source &mdash; all three are correctly zeroed. Acetylene and the mixed shielding-gas
+              source. All three are correctly zeroed. Acetylene and the mixed shielding-gas
               products are the ones that count, calculated against a published methodology (energy
               content combined with CO&#8322;, CH&#8324; and N&#8322;O factors).
             </p>
             <p>
               <strong>Where the number isn't fully known yet, the pipeline says so instead of
               guessing:</strong> the shielding-gas factor is explicitly tagged as a
-              <em>temporary proxy, pending supplier composition data</em> in the lookup table &mdash;
+              <em>temporary proxy, pending supplier composition data</em> in the lookup table,
               using the same interim methodology as acetylene, flagged as provisional until the
               real figure is confirmed. It is not presented as more precise than it is.
             </p>
             <p>
               <strong>Reconciliation, built in, not bolted on:</strong> the pipeline's line-item
-              detail and its invoice-level summary are checked against each other on every batch
-              &mdash; the same total, arrived at by two independently derived paths. On the batch
+              detail and its invoice-level summary are checked against each other on every batch:
+              the same total, arrived at by two independently derived paths. On the batch
               shown here, both agreed to two decimal places.
             </p>
             <p>
-              In production, the report reads two clean fact tables in Power BI &mdash; one per
-              supplier, joined to a shared date dimension &mdash; with no re-derivation of emissions
+              In production, the report reads two clean fact tables in Power BI (one per
+              supplier, joined to a shared date dimension) with no re-derivation of emissions
               inside the report itself. If a factor is ever wrong, it gets fixed once, at the
               source, not chased through a dozen measures.
             </p>
@@ -375,7 +375,7 @@
                    alt="Power BI Scope 1 dashboard: total and average diesel litres and gas m3 converted to t-CO2-e, with monthly trend charts for diesel and gas consumption against emissions across a full financial year."
                    width="1687" height="853" loading="lazy" decoding="async" />
               <figcaption>
-                Scope 1 &mdash; consumption and t&#8209;CO&#8322;-e, side by side, month by month.
+                Scope 1: consumption and t&#8209;CO&#8322;-e, side by side, month by month.
                 Every bar traces back to an invoice; every invoice traces back to a source PDF.
               </figcaption>
             </figure>
@@ -386,7 +386,7 @@
                    alt="Power BI Scope 2 dashboard: average, maximum and minimum daily electricity kWh converted to t-CO2-e, with a monthly trend chart of electricity consumption against emissions."
                    width="1687" height="847" loading="lazy" decoding="async" />
               <figcaption>
-                Scope 2 &mdash; electricity consumption against t&#8209;CO&#8322;-e, with the state
+                Scope 2: electricity consumption against t&#8209;CO&#8322;-e, with the state
                 grid factor built into the calculation rather than assumed constant.
               </figcaption>
             </figure>
@@ -405,7 +405,7 @@
             <div class="wrap pstat-grid">
               <div class="pstat-item">
                 <span class="pstat-num">120<span>&rarr;112</span></span>
-                <span class="pstat-lab">PDFs classified &mdash; only the real invoices parsed</span>
+                <span class="pstat-lab">PDFs classified, only the real invoices parsed</span>
               </div>
               <div class="pstat-item">
                 <span class="pstat-num">4</span>
@@ -428,7 +428,7 @@
               <ul class="doctrine">
                 <li>
                   <strong>This covers electricity and gas only.</strong> Fleet fuel is a separate,
-                  currently manual thread &mdash; a colleague extracts it from a supplier web
+                  currently manual thread: a colleague extracts it from a supplier web
                   portal, because no API access exists yet. Not claimed here.
                 </li>
                 <li>
@@ -443,7 +443,7 @@
                 </li>
                 <li>
                   <strong>The classification rules are layout-specific.</strong> A supplier
-                  changing its invoice template needs the parser updated &mdash; the pipeline flags
+                  changing its invoice template needs the parser updated; the pipeline flags
                   this itself, rather than silently mis-parsing, by routing anything it doesn't
                   recognise to manual review instead of guessing.
                 </li>
@@ -461,7 +461,7 @@
                 <li>
                   Build the <strong>same classify-by-text</strong> approach into the first supplier
                   too, even though it didn't need it yet. The second supplier needed it on day one
-                  of that build &mdash; better to have the safety net a batch early than a batch
+                  of that build; better to have the safety net a batch early than a batch
                   late.
                 </li>
                 <li>
