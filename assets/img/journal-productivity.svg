@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 348" width="800" height="348" role="img" aria-labelledby="t d">
+  <title id="t">Work moved onto a machine schedule</title>
+  <desc id="d">Four recurring jobs. For each one the left block shows how many times a month a person used to do it by hand, and the right block shows the same work still happening, on the same cycle, done by machine instead. Daily claim consolidation every working day, the cash position every Friday, project setup for every new project, and report refreshes before each report. The work did not stop; the manual part did.</desc>
+  <style>
+    .lab  { font:700 10.5px Inter,system-ui,sans-serif; fill:#1357a6; letter-spacing:.12em; }
+    .labq { font:700 10.5px Inter,system-ui,sans-serif; fill:#8a7320; letter-spacing:.12em; }
+    .nm   { font:600 14px Inter,system-ui,sans-serif; fill:#0b2d5c; }
+    .how  { font:400 11.5px Inter,system-ui,sans-serif; fill:#4a5a6e; }
+    .cap  { font:400 11.5px Inter,system-ui,sans-serif; fill:#4a5a6e; }
+    .hand { fill:#0b2d5c; }
+    .mach { fill:#f7c948; }
+    .arr  { stroke:#0b2d5c; stroke-width:1.6; fill:none; }
+    .rule { stroke:#eef0f3; stroke-width:1; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0b2d5c"/>
+    </marker>
+  </defs>
+  <text class="lab" x="24" y="30">WORK ON MACHINE SCHEDULE</text>
+  <text class="cap" x="24" y="50">Each square is one run in a typical month. Before and after the new setup.</text>
+  <text class="lab" x="300.0" y="76">BY A PERSON</text>
+  <text class="labq" x="543.2" y="76">BY MACHINE, ON SCHEDULE</text>
+  <text class="nm" x="24" y="118.0">Daily claim consolidation</text>
+  <text class="how" x="24" y="136.0">a week of site claims copied into the report</text>
+  <rect class="hand" x="300.0" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="310.3" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="320.6" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="330.9" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <path class="arr" d="M511.2 121.0 H537.2" marker-end="url(#a)"/>
+  <rect class="mach" x="543.2" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="553.5" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="563.8" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="574.1" y="117.2" width="7.5" height="7.5" rx="2"/>
+  <line class="rule" x1="24" y1="150" x2="776" y2="150"/>
+  <text class="nm" x="24" y="176.0">Cash position</text>
+  <text class="how" x="24" y="194.0">export, lookup, paste, every Friday</text>
+  <rect class="hand" x="300.0" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="310.3" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="320.6" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="330.9" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <path class="arr" d="M511.2 179.0 H537.2" marker-end="url(#a)"/>
+  <rect class="mach" x="543.2" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="553.5" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="563.8" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="574.1" y="175.2" width="7.5" height="7.5" rx="2"/>
+  <line class="rule" x1="24" y1="208" x2="776" y2="208"/>
+  <text class="nm" x="24" y="234.0">Project setup</text>
+  <text class="how" x="24" y="252.0">folder tree and number, every project</text>
+  <rect class="hand" x="300.0" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="310.3" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="320.6" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="330.9" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="341.2" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="351.5" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <path class="arr" d="M511.2 237.0 H537.2" marker-end="url(#a)"/>
+  <rect class="mach" x="543.2" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="553.5" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="563.8" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="574.1" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="584.4" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="594.7" y="233.2" width="7.5" height="7.5" rx="2"/>
+  <line class="rule" x1="24" y1="266" x2="776" y2="266"/>
+  <text class="nm" x="24" y="292.0">Report refresh</text>
+  <text class="how" x="24" y="310.0">export and clean before each report</text>
+  <rect class="hand" x="300.0" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="310.3" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="320.6" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="330.9" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="hand" x="341.2" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <path class="arr" d="M511.2 295.0 H537.2" marker-end="url(#a)"/>
+  <rect class="mach" x="543.2" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="553.5" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="563.8" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="574.1" y="291.2" width="7.5" height="7.5" rx="2"/>
+  <rect class="mach" x="584.4" y="291.2" width="7.5" height="7.5" rx="2"/>
+</svg>

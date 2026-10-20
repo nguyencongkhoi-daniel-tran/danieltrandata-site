@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 232" width="800" height="232" role="img" aria-labelledby="t d">
+  <title id="t">How I explain technical work</title>
+  <desc id="d">Five steps in a line: identify where the understanding breaks down, narrow it with questions, choose a familiar analogy or a visual, explain, then confirm it has landed. A return arrow runs from the last step back to the second: if it has not landed, narrow it again.</desc>
+  <style>
+    .bx   { fill:#eef5fc; stroke:#1357a6; stroke-width:1.5; }
+    .num  { font:700 10px Inter,system-ui,sans-serif; fill:#1357a6; letter-spacing:.09em; }
+    .st   { font:700 15px Inter,system-ui,sans-serif; fill:#0b2d5c; }
+    .sub  { font:400 11.5px Inter,system-ui,sans-serif; fill:#4a5a6e; }
+    .lab  { font:700 10.5px Inter,system-ui,sans-serif; fill:#1357a6; letter-spacing:.12em; }
+    .ret  { font:600 11.5px Inter,system-ui,sans-serif; fill:#8a7320; }
+    .ln   { stroke:#0b2d5c; stroke-width:1.6; fill:none; }
+    .ln-d { stroke:#e0a800; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0b2d5c"/>
+    </marker>
+    <marker id="y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e0a800"/>
+    </marker>
+  </defs>
+  <text class="lab" x="24" y="26">HOW I EXPLAIN TECHNICAL WORK</text>
+  <rect class="bx" x="24.0" y="46" width="128" height="96" rx="9"/>
+  <text class="num" x="88.0" y="66" text-anchor="middle">01</text>
+  <text class="st" x="88.0" y="94" text-anchor="middle">Identify</text>
+  <text class="sub" x="88.0" y="112" text-anchor="middle">where it</text>
+  <text class="sub" x="88.0" y="127" text-anchor="middle">breaks down</text>
+  <rect class="bx" x="180.0" y="46" width="128" height="96" rx="9"/>
+  <text class="num" x="244.0" y="66" text-anchor="middle">02</text>
+  <text class="st" x="244.0" y="94" text-anchor="middle">Narrow it</text>
+  <text class="sub" x="244.0" y="112" text-anchor="middle">with questions</text>
+  <path class="ln" d="M157.0 94 H176.0" marker-end="url(#a)"/>
+  <rect class="bx" x="336.0" y="46" width="128" height="96" rx="9"/>
+  <text class="num" x="400.0" y="66" text-anchor="middle">03</text>
+  <text class="st" x="400.0" y="94" text-anchor="middle">Choose</text>
+  <text class="sub" x="400.0" y="112" text-anchor="middle">a familiar analogy</text>
+  <text class="sub" x="400.0" y="127" text-anchor="middle">or a visual</text>
+  <path class="ln" d="M313.0 94 H332.0" marker-end="url(#a)"/>
+  <rect class="bx" x="492.0" y="46" width="128" height="96" rx="9"/>
+  <text class="num" x="556.0" y="66" text-anchor="middle">04</text>
+  <text class="st" x="556.0" y="102" text-anchor="middle">Explain</text>
+  <path class="ln" d="M469.0 94 H488.0" marker-end="url(#a)"/>
+  <rect class="bx" x="648.0" y="46" width="128" height="96" rx="9"/>
+  <text class="num" x="712.0" y="66" text-anchor="middle">05</text>
+  <text class="st" x="712.0" y="94" text-anchor="middle">Confirm</text>
+  <text class="sub" x="712.0" y="112" text-anchor="middle">it has landed</text>
+  <path class="ln" d="M625.0 94 H644.0" marker-end="url(#a)"/>
+  <path class="ln-d" d="M712.0 142 V196 H244.0 V148" marker-end="url(#y)"/>
+  <text class="ret" x="478.0" y="187" text-anchor="middle">if it has not landed, narrow it again</text>
+</svg>

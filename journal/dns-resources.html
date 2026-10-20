@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D&S Resources · Working Journal · Daniel Tran</title>
+  <meta name="description" content="Working journal for the D&S Resources role: job knowledge and responsibilities, performance and contribution, productivity, and communication. Rebuild in progress." />
+  <meta name="author" content="Daniel Tran" />
+
+  <!-- ============================================================
+       PORTFOLIO — danieltrandata.com
+       Static site: this file + assets/css/portfolio.css
+       + assets/js/portfolio.js. No build step, no framework.
+       ============================================================ -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="D&S Resources · Working Journal" />
+  <meta property="og:description" content="Finance data and reporting inside an engineering and construction business." />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://danieltrandata.com/journal/dns-resources.html" />
+  <meta property="og:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Daniel Tran, Financial Analyst · danieltrandata.com" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="D&S Resources · Working Journal" />
+  <meta name="twitter:description" content="Finance data and reporting inside an engineering and construction business." />
+  <meta name="twitter:image" content="https://danieltrandata.com/assets/img/og-image.jpg?v=2" />
+
+  <link rel="canonical" href="https://danieltrandata.com/journal/dns-resources.html" />
+
+  <!-- Favicons — 'D + data-bars' mark (F1). ?v=4 busts Hostinger CDN cache -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/portfolio.css?v=28" />
+
+  <!-- Structured data: helps Google understand who this is -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Tran",
+    "url": "https://danieltrandata.com",
+    "jobTitle": "Financial Analyst",
+    "description": "Finance-trained data engineer specialising in finance-grade data pipelines, automation and decision intelligence.",
+    "address": { "@type": "PostalAddress", "addressRegion": "South Australia", "addressCountry": "AU" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Torrens University Australia" },
+    "sameAs": [
+      "https://www.linkedin.com/in/nguyen-daniel-tran-accounting/",
+      "https://www.youtube.com/@DanielTranAustraliaSA"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Daniel Tran, home">
+        <span class="wordmark-icon" aria-hidden="true">
+          <svg viewBox="0 0 512 512"><defs><linearGradient id="wmH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmH)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+        </span>
+        <span class="wordmark-text">
+          <span class="wordmark-name">DANIEL TRAN</span>
+          <span class="wordmark-sub">Financial Analyst</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#stack">Stack</a></li>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../journal.html">Journal</a></li>
+          <li><a href="../index.html#ai">AI</a></li>
+          <li><a href="../index.html#credentials">Credentials</a></li>
+          <li><a href="../index.html#beyond">Beyond</a></li>
+          <li class="nav-cta-item"><a class="btn btn-yellow btn-sm" href="#contact">Get in touch</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top" tabindex="-1"></span>
+
+    <!-- ============================================================
+         D&S RESOURCES — WORKING JOURNAL
+
+         SKELETON. Rebuilt 2026-10-19 on Daniel's instruction:
+         fewest possible words, the visuals carry the message.
+
+         Four sections, in this order on purpose:
+           1 Job knowledge  -> sets the SIZE of the job
+           2 Performance    -> proves it is done WELL
+           3 Productivity   -> proves it is EFFICIENT
+           4 Communication  -> proves it is NOT A SILO
+
+         Every placeholder below is deliberately empty. Content comes
+         from Daniel, section by section. Do NOT fill a hole from
+         memory - that is the thing this rebuild exists to fix.
+
+         Previous version: commit 3b1b0a0.
+         ============================================================ -->
+
+    <!-- ============ SUB-HERO ============ -->
+    <section class="subhero">
+      <div class="wrap">
+        <p class="kicker"><a class="subhero-back" href="../journal.html">&larr; Working Journal</a></p>
+        <h1>D&amp;S Resources</h1>
+        <p class="subhero-lead">
+          Work journal covering May 2025 to present.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · JOB KNOWLEDGE, RESPONSIBILITIES AND TASKS ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+        <header class="sec-head sec-head--compact">
+          <h2>Section 1: Job knowledge, responsibilities and tasks</h2>
+        </header>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Scope</span> What the job covers</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-scope.svg"
+               class="dia"
+               alt="The six parts of the business I build the reporting for: projects, finance, HR, plant and equipment, HSEQ, and carbon. All six stand on one platform, the financial reporting system and data warehouse I designed, built and run."
+               width="800" height="560" loading="lazy" decoding="async" />
+        </figure>
+
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Knowledge</span> The platforms and tools I work in</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-skills.svg"
+               class="dia"
+               alt="Two bar charts. The first shows the business systems I read through their APIs: AroFlo, Xero, Clockify, Employment Hero, Gearbox and SharePoint. The second shows the tools I build with: Python, n8n, SQL Server, Power BI, Dagster, Excel and Obsidian. Each bar shows how much of that platform I run myself."
+               width="800" height="410" loading="lazy" decoding="async" />
+        </figure>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Tasks and responsibilities</span> How work gets done</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-process.svg"
+               class="dia"
+               alt="A repeating cycle of eight steps: get business requirements, interpret the requirements, assess system capability, build a prototype, ask for feedback, implement, monitor, improve, and back to the start. Obsidian sits at the centre because every step is documented there."
+               width="800" height="816" loading="lazy" decoding="async" />
+        </figure>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">System flow</span> How the data moves</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-pipeline.svg"
+               class="dia"
+               alt="Diagram: six source systems are read on a schedule by n8n cloud flows and a separate Python full extract, both started and restarted by Dagster. Raw files land in SharePoint before anything is processed, sync down to a workstation where Python watchers pick them up, and Python loaders write them into two SQL Server databases, an incremental one and a full loading one, that are compared against each other every morning. Power BI reads from the databases, and some reports still read the SharePoint files directly."
+               width="800" height="980" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 2 · PERFORMANCE AND CONTRIBUTION ============ -->
+    <section class="sec sec-tint">
+      <div class="wrap wrap-narrow">
+        <header class="sec-head sec-head--compact">
+          <h2>Section 2: Performance and contribution</h2>
+        </header>
+
+        <!-- SECTION2:BEGIN  generated by _build/gen_section2.py - do not hand-edit -->
+        <div class="pstat-grid pstat-grid--3">
+          <a class="pstat-item" href="#reports">
+            <span class="pstat-num">129</span>
+            <span class="pstat-lab">pages and sheets of reporting</span>
+          </a>
+          <a class="pstat-item" href="#workflows">
+            <span class="pstat-num">59</span>
+            <span class="pstat-lab">n8n workflows</span>
+          </a>
+          <a class="pstat-item" href="#code">
+            <span class="pstat-num">8,820</span>
+            <span class="pstat-lab">lines of Python, writing and maintaining</span>
+          </a>
+        </div>
+        <h3 class="stage-sub" id="reports"><span class="stage-sub-lab">Reports</span> What leadership opens</h3>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr>
+              <th>Level</th>
+              <th>Report</th>
+              <th>Platform</th>
+              <th class="num">Pages / sheets</th>
+              <th>Phase</th>
+              <th>Contribution</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>Company</td>
+                <td>D&amp;S Company Level Reports</td>
+                <td>Power BI</td>
+                <td class="num">8</td>
+                <td>In Production</td>
+                <td>Company financial report including HR and HSEQ</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>AROFLO Projects Summary Data Modeling</td>
+                <td>Power BI</td>
+                <td class="num">17</td>
+                <td>In Production</td>
+                <td>Give details and bird-eye overview about project financial health</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>AROFLO Projects Summary Data Modeling-SQL</td>
+                <td>Power BI</td>
+                <td class="num">17</td>
+                <td>Finalizing</td>
+                <td>Incremental loading method for future efficiency</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>AROFLO Projects Summary Data Modeling - Dagster-SQL</td>
+                <td>Power BI</td>
+                <td class="num">17</td>
+                <td>Finalizing</td>
+                <td>Applying Dagster for better system management</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>Major Projects Report (DNS-11243)</td>
+                <td>Power BI</td>
+                <td class="num">16</td>
+                <td>In Production</td>
+                <td>Give details and bird-eye overview about Major Projects financial health</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>Major Projects Report (DNS-11170)</td>
+                <td>Power BI</td>
+                <td class="num">16</td>
+                <td>In Production</td>
+                <td>Give details and bird-eye overview about Major Projects financial health</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>Major Projects Report (DNS-11084)</td>
+                <td>Power BI</td>
+                <td class="num">16</td>
+                <td>In Production</td>
+                <td>Give details and bird-eye overview about Major Projects financial health</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>Project Schedule</td>
+                <td>Excel</td>
+                <td class="num">1</td>
+                <td>In Production</td>
+                <td>Project progression and project financial overview</td>
+              </tr>
+              <tr>
+                <td>Plant &amp; Equipment</td>
+                <td>GEARBOX_D&amp;S Equipment tracker</td>
+                <td>Excel</td>
+                <td class="num">3</td>
+                <td>In Production</td>
+                <td>Fleets and machine kms and hrs</td>
+              </tr>
+              <tr>
+                <td>HR</td>
+                <td>Workforce Management Registry</td>
+                <td>Excel</td>
+                <td class="num">8</td>
+                <td>under Review</td>
+                <td>Timesheet, leave and fatigue management</td>
+              </tr>
+              <tr>
+                <td>Carbon</td>
+                <td>EMS Tracker Report</td>
+                <td>Excel</td>
+                <td class="num">5</td>
+                <td>In Production</td>
+                <td>Scope 1 and 2 of CO2 emissions report</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>QUOTATION TEMPLATE Ver 1</td>
+                <td>Excel</td>
+                <td class="num">5</td>
+                <td>under Review</td>
+                <td>Quote template</td>
+              </tr>
+            </tbody>
+            <tfoot><tr>
+              <td></td>
+              <td>12 reports</td>
+              <td></td>
+              <td class="num">129</td>
+              <td></td>
+              <td></td>
+            </tr></tfoot>
+          </table>
+        </div>
+        <h3 class="stage-sub" id="workflows"><span class="stage-sub-lab">Workflows</span> What runs without anyone starting it</h3>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr>
+              <th>Source system</th>
+              <th>Platform</th>
+              <th class="num">Workflows</th>
+              <th class="num">Running</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>AroFlo</td>
+                <td>n8n (cloud)</td>
+                <td class="num">20</td>
+                <td class="num">18</td>
+              </tr>
+              <tr>
+                <td>Xero</td>
+                <td>n8n (cloud)</td>
+                <td class="num">8</td>
+                <td class="num">5</td>
+              </tr>
+              <tr>
+                <td>Employment Hero</td>
+                <td>n8n (cloud)</td>
+                <td class="num">3</td>
+                <td class="num">0</td>
+              </tr>
+              <tr>
+                <td>Gearbox</td>
+                <td>n8n (cloud)</td>
+                <td class="num">1</td>
+                <td class="num">1</td>
+              </tr>
+              <tr>
+                <td>SharePoint only / internal</td>
+                <td>n8n (cloud)</td>
+                <td class="num">21</td>
+                <td class="num">10</td>
+              </tr>
+              <tr>
+                <td>Learning &amp; scratch</td>
+                <td>n8n (cloud)</td>
+                <td class="num">6</td>
+                <td class="num">0</td>
+              </tr>
+            </tbody>
+            <tfoot><tr>
+              <td>Total</td>
+              <td></td>
+              <td class="num">59</td>
+              <td class="num">34</td>
+            </tr></tfoot>
+          </table>
+        </div>
+        <p class="dtable-note">Counted from the live n8n instance, following the API cursor to the last page.</p>
+        <h3 class="stage-sub" id="code"><span class="stage-sub-lab">Code</span> What I wrote and maintain</h3>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr>
+              <th>What it does</th>
+              <th>Language</th>
+              <th class="num">Files</th>
+              <th class="num">Lines</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>Extract from API</td>
+                <td>Python</td>
+                <td class="num">6</td>
+                <td class="num">2,859</td>
+              </tr>
+              <tr>
+                <td>Authentication</td>
+                <td>Python</td>
+                <td class="num">1</td>
+                <td class="num">134</td>
+              </tr>
+              <tr>
+                <td>Transform</td>
+                <td>Python</td>
+                <td class="num">4</td>
+                <td class="num">843</td>
+              </tr>
+              <tr>
+                <td>Load to database</td>
+                <td>Python</td>
+                <td class="num">5</td>
+                <td class="num">1,474</td>
+              </tr>
+              <tr>
+                <td>Watch &amp; trigger</td>
+                <td>Python</td>
+                <td class="num">2</td>
+                <td class="num">947</td>
+              </tr>
+              <tr>
+                <td>Validate &amp; monitor</td>
+                <td>Python</td>
+                <td class="num">6</td>
+                <td class="num">1,311</td>
+              </tr>
+              <tr>
+                <td>Draft / utility</td>
+                <td>Python</td>
+                <td class="num">4</td>
+                <td class="num">1,252</td>
+              </tr>
+            </tbody>
+            <tfoot><tr>
+              <td>Total</td>
+              <td></td>
+              <td class="num">28</td>
+              <td class="num">8,820</td>
+            </tr></tfoot>
+          </table>
+        </div>
+        <p class="dtable-note">Measured from the files themselves. Blank lines and comments excluded. Every figure above is counted from the rows beside it.</p>
+        <!-- SECTION2:END -->
+      </div>
+    </section>
+
+    <!-- ============ 3 · PRODUCTIVITY ============ -->
+    <section class="sec">
+      <div class="wrap wrap-narrow">
+        <header class="sec-head sec-head--compact">
+          <h2>Section 3: Productivity</h2>
+        </header>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Time efficiency</span> Tasks on cloud and machine schedule</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-productivity.svg"
+               class="dia"
+               alt="Four recurring jobs. The left block shows how many times a month a person used to do each one by hand; the right block shows the same work still happening, on the same cycle, run by machine. A week of site claims consolidated weekly, the cash position every Friday, project setup for every new project, and report refreshes before each report."
+               width="800" height="348" loading="lazy" decoding="async" />
+        </figure>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Objectives</span> Achieved</h3>
+
+        <div class="pstat-grid pstat-grid--3">
+          <div class="pstat-item">
+            <span class="pstat-num">260<span>&#8239;GB</span></span>
+            <span class="pstat-lab">SharePoint storage reduced</span>
+          </div>
+          <div class="pstat-item">
+            <span class="pstat-num">498<span>&#8239;GB</span></span>
+            <span class="pstat-lab">D&amp;S Resources data backed up</span>
+          </div>
+          <div class="pstat-item">
+            <span class="pstat-num">1<span>&#8239;day</span></span>
+            <span class="pstat-lab">DNS-11170 Daily Cost Summary, built</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · COMMUNICATION ============ -->
+    <section class="sec sec-tint">
+      <div class="wrap wrap-narrow">
+        <header class="sec-head sec-head--compact">
+          <h2>Section 4: Communication</h2>
+        </header>
+
+        <h3 class="stage-sub"><span class="stage-sub-lab">Method</span> How I explain technical work</h3>
+        <figure class="case-diagram stage-figure">
+          <img src="../assets/img/journal-method.svg"
+               class="dia"
+               alt="Five steps in a line: identify where the understanding breaks down, narrow it with questions, choose a familiar analogy or a visual, explain, then confirm it has landed. A return arrow runs from the last step back to the second: if it has not landed, narrow it again."
+               width="800" height="232" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+    <!-- ============ CONTACT ============ -->
+    <!-- Rendered on EVERY page from this one partial (build.py inserts it before
+         main-close). The lead sentence is per-page via Happy to walk through any of this in more detail: how it was approached, or what I would do differently now. so a case
+         page can name its own detail without the section design ever drifting. -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-inner">
+
+          <div class="contact-intro">
+            <h2 class="contact-title">Get in touch</h2>
+            <p class="contact-lead">Happy to walk through any of this in more detail: how it was approached, or what I would do differently now.</p>
+            <p class="contact-place">
+              <svg class="contact-place-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="2.4" />
+              </svg>
+              <span>Adelaide, South Australia &middot; ACST (UTC+9:30)</span>
+            </p>
+          </div>
+
+          <div class="contact-methods">
+            <a class="contact-card" href="mailto:nguyencongkhoitran@gmail.com">
+              <svg class="contact-card-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="#2c5185" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+              </svg>
+              <span class="contact-card-val">nguyencongkhoitran@gmail.com</span>
+              <svg class="contact-card-go" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h13M12 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            <a class="contact-card" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+              <svg class="contact-card-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="#2c5185" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/>
+              </svg>
+              <span class="contact-card-val">Connect or message me</span>
+              <svg class="contact-card-go" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h13M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="wordmark wordmark-light" href="../index.html#top">
+            <span class="wordmark-icon" aria-hidden="true">
+              <svg viewBox="0 0 512 512"><defs><linearGradient id="wmF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14417a"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#wmF)"/><path fill="#ffffff" fill-rule="evenodd" d="M68 156 H160 A100 100 0 0 1 160 356 H68 Z M124 210 H160 A50 50 0 0 1 160 302 H124 Z"/><rect x="280" y="282" width="46" height="74" rx="10" fill="#ffffff" opacity=".45"/><rect x="340" y="234" width="46" height="122" rx="10" fill="#ffffff" opacity=".72"/><rect x="400" y="180" width="46" height="176" rx="10" fill="#ffffff" opacity=".92"/><circle cx="423" cy="146" r="28" fill="#f7c948"/></svg>
+            </span>
+            <span class="wordmark-text">
+              <span class="wordmark-name">DANIEL TRAN</span>
+              <span class="wordmark-sub">Financial Analyst</span>
+            </span>
+          </a>
+          <p class="footer-desc">
+            Finance-trained data engineer in Adelaide, South Australia. I build governed,
+            audit-ready financial data systems that leadership makes decisions on.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Site">
+          <h3>Site</h3>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#work">Work</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../index.html#credentials">Credentials</a>
+          <!-- CV link hidden for now (kept, not deleted):
+          <a href="../assets/docs/daniel-tran-cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+          -->
+        </nav>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <a class="footer-contact-link footer-email" href="mailto:nguyencongkhoitran@gmail.com">
+            <img class="footer-contact-icon footer-icon-gmail" src="../assets/img/gmail-logo-white-gradient.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>nguyencongkhoitran@gmail.com</span>
+          </a>
+          <a class="footer-contact-link footer-linkedin" href="https://www.linkedin.com/in/nguyen-daniel-tran-accounting/" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon" src="../assets/img/linkedin-white.png" alt="" width="18" height="18" decoding="async" />
+            <span>LinkedIn</span>
+          </a>
+          <a class="footer-contact-link footer-youtube" href="https://www.youtube.com/@DanielTranAustraliaSA" target="_blank" rel="noopener noreferrer">
+            <img class="footer-contact-icon footer-icon-youtube" src="../assets/img/youtube-logo-white.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+            <span>Daniel Tran</span>
+          </a>
+          <p class="footer-location">
+            <svg class="footer-contact-icon footer-icon-location" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="2.4" />
+            </svg>
+            <span>Adelaide, South Australia</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p class="disclaimer">
+          Nothing on this website is financial, tax or legal advice.
+        </p>
+        <p class="copyright">&copy; <span id="year">2026</span> Daniel Tran. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top. Plain anchor: works without JS; JS only handles show/hide. -->
+  <a class="to-top" id="toTop" href="#top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </a>
+
+  <script src="../assets/js/portfolio.js?v=3"></script>
+</body>
+</html>
