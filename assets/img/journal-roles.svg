@@ -4,7 +4,7 @@
   <style>
     .rl { font:700 13px Inter,system-ui,sans-serif; fill:#0b2d5c; letter-spacing:.01em; }
   </style>
-  <svg x="19.0" y="6" width="162" height="93" viewBox="0 0 242 139"><defs><linearGradient id="fa-navy" gradientUnits="userSpaceOnUse" x1="56" y1="0" x2="188" y2="0"><stop offset="0" stop-color="#4a7fbd"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient><clipPath id="fa-waterline"><path d="M0 0 H242 V62 14 86 C 56 62, 104 102, 150 84 C 180 72, 196 66, 212 62 L0 86 Z"/></clipPath></defs>
+  <svg x="19.0" y="6" width="162" height="93" viewBox="0 0 242 139"><defs><linearGradient id="fa-navy" gradientUnits="userSpaceOnUse" x1="56" y1="0" x2="188" y2="0"><stop offset="0" stop-color="#4a7fbd"/><stop offset="1" stop-color="#0b2d5c"/></linearGradient><clipPath id="fa-waterline"><path d="M0 86 L14 86 C 56 62, 104 102, 150 84 C 180 72, 196 66, 212 62 L242 62 L242 0 L0 0 Z"/></clipPath></defs>
   <g fill="none" stroke-width="16" stroke-linecap="round"><path stroke="#b9cde6" d="M62 48 V106 M86 32 V120 M110 24 V128 M134 32 V120 M158 48 V106"/><g clip-path="url(#fa-waterline)"><path stroke="url(#fa-navy)" d="M62 48 V106 M86 32 V120 M110 24 V128 M134 32 V120 M158 48 V106"/></g></g>
   <path fill="none" stroke="#e0a800" stroke-width="9" stroke-linecap="round" d="M14 86 C 56 62, 104 102, 150 84 C 180 72, 196 66, 212 62"/></svg>
   <text class="rl" x="100.0" y="126" text-anchor="middle">Financial Analyst</text>
